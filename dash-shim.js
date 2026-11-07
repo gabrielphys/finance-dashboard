@@ -1,10 +1,9 @@
 // Sostituisce il runtime `dash` di Cowork: carica i JSON da data/out e li serve alla dashboard.
 (() => {
-  const F = {allocation:'xtb_allocation_u30', backtest:'xtb_backtest_u30', corr:'xtb_corr_u30', cov:'xtb_cov_u30',
-    dist:'xtb_dist_u30', equity:'xtb_equity_u30', flows:'xtb_flows_u30', frontier:'xtb_frontier_u30',
-    liquidity:'xtb_liquidity_v2', model:'xtb_model_u30', pacs:'xtb_pacs_u30', portfolios:'xtb_portfolios_u30',
-    positions:'xtb_positions_u30', realized:'xtb_realized_u30', risk:'xtb_risk_u30', rolling:'xtb_rolling_u30',
-    scenarios:'xtb_scenarios_v2', screener:'xtb_screener_u30', weights:'xtb_weights_u30'};
+  const F = {allocation:'allocation', backtest:'backtest', corr:'corr', cov:'xtb_cov', dist:'dist', equity:'equity',
+    flows:'flows', frontier:'frontier', liquidity:'xtb_liquidity_v2', model:'xtb_model', pacs:'xtb_pacs',
+    portfolios:'portfolios', positions:'positions', realized:'realized', risk:'risk', rolling:'rolling',
+    scenarios:'xtb_scenarios_v2', screener:'screener', weights:'weights'};   // dati rigenerati da GitHub Actions ogni 15 min
   const S = {}, calcs = [], cbs = [];
   let params = {};
   const fire = () => cbs.forEach(f => f());
@@ -17,8 +16,13 @@
     setParams: o => { params = {...params, ...o}; fire(); },
     setLink: () => {},
   };
-  Promise.all(Object.entries(F).map(([id, f]) =>
-    fetch(`data/out/${f}.json`).then(r => r.json()).then(d => { S[id] = {status:'ok', data:d}; })
-      .catch(() => { S[id] = {status:'error', data:[]}; })
-  )).then(() => { runCalcs(); fire(); });
+  const load = () => Promise.all(Object.entries(F).map(([id, f]) =>
+    fetch(`data/out/${f}.json`, {cache:'no-store'}).then(r => r.json()).then(d => { S[id] = {status:'ok', data:d}; })
+      .catch(() => { if (!S[id]) S[id] = {status:'error', data:[]}; })
+  )).then(() => { runCalcs(); fire(); return fetch('data/out/meta.json', {cache:'no-store'}).then(r => r.json()).then(m => {
+    const el = document.getElementById('asof'); if (el) el.title = 'Aggiornato ' + new Date(m.updated).toLocaleString('it-IT');
+    let u = document.getElementById('upd'); if (!u && el) { u = document.createElement('span'); u.id = 'upd'; el.parentNode.append(' · agg. ', u); }
+    if (u) u.textContent = new Date(m.updated).toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
+  }).catch(() => {}); });
+  load(); setInterval(load, 15 * 60 * 1000);
 })();

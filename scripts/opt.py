@@ -1,7 +1,7 @@
 import json, numpy as np, pandas as pd
 from scipy.optimize import minimize, linprog
 from sklearn.covariance import LedoitWolf
-END=pd.Timestamp('2026-11-06'); EXP=pd.Timestamp('2026-10-30')   # analisi / export XTB
+END=pd.offsets.BDay().rollback(pd.Timestamp.now().normalize()); EXP=pd.Timestamp('2026-10-30')   # analisi / export XTB
 def load(sym):
     d=json.load(open(f'../data/prices5/{sym}.json'))
     s=pd.Series(d['c'],index=pd.to_datetime(d['ts'],unit='s').normalize(),dtype=float).dropna()

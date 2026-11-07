@@ -3,3 +3,4 @@ data/xtb_exports/
 *.xlsx
 *.pkl
 __pycache__/
+!data/snapshot.pkl

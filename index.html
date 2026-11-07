@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard portafoglio XTB</title>
+<style>:root{--font-anthropic-sans:system-ui,-apple-system,"Segoe UI",sans-serif;--font-anthropic-serif:Georgia,serif}body{margin:0;background:#0a0d12}</style>
+</head><body>
+<style>
+.qx{--bg:#0a0d12;--panel:#10151c;--panel2:#0d1117;--line:#1f2833;--line2:#2c3846;--tx:#e3e9ef;--mu:#8593a3;--dim:#5b6878;--ac:#f5a623;--bl:#60a5fa;--te:#2dd4bf;--vi:#a78bfa;--up:#22c55e;--dn:#ef4444;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  position:relative;background:var(--bg);color:var(--tx);font-family:var(--font-anthropic-sans);border:1px solid var(--line);border-radius:8px;padding:clamp(12px,2vw,24px);font-size:13px;container-type:inline-size;container-name:qx;max-width:1760px;margin-inline:auto}
+.qx *{box-sizing:border-box}
+.qx-top{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}
+.qx-brand{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--ac);text-transform:uppercase}
+.qx-h1{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(22px,2.8vw,28px);margin:2px 0 0;color:#fff}
+.qx-meta{font-family:var(--mono);font-size:11px;color:var(--mu);text-align:right;line-height:1.6}
+.qx-meta b{color:var(--tx);font-weight:400}
+.qx-take{color:var(--mu);font-size:13.5px;line-height:1.5;margin:0 0 12px;max-width:1000px}
+.qx-take b{color:var(--tx);font-weight:500}
+.qx-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,118px),1fr));border:1px solid var(--line);border-radius:6px;background:var(--panel2);margin-bottom:14px;overflow:hidden}
+.qx-k{padding:9px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0;min-height:66px}
+.qx-kl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);white-space:nowrap}
+.qx-kv{font-family:var(--mono);font-size:17px;color:#fff;margin-top:5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.qx-ks{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:2px;white-space:nowrap}
+.pos{color:var(--up)!important}.neg{color:var(--dn)!important}
+.qx-tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.qx-tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--mu);font:500 12px var(--font-anthropic-sans);letter-spacing:.04em;padding:9px 14px;cursor:pointer;white-space:nowrap}
+.qx-tabs button[aria-selected=true]{color:#fff;border-bottom-color:var(--ac)}
+.qx-tabs button:hover{color:var(--tx)}
+.qx-page[hidden]{display:none}
+.qx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:12px}
+.qx-wide{grid-column:1/-1}
+.qx-card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-width:0}
+.qx-ct{font-size:13.5px;font-weight:500;color:#fff;margin:0;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.qx-ct small{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;font-weight:400}
+.qx-cn{font-size:12px;color:var(--mu);margin:3px 0 10px;line-height:1.45}
+.qx-chart{position:relative;width:100%}
+.qx svg text{fill:var(--mu);font-family:var(--mono);font-size:10px}
+.qx .ax path,.qx .ax line{stroke:var(--line2)}
+.qx .gridl line{stroke:#18202a}.qx .gridl path{display:none}
+.qx-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11.5px;color:var(--mu);margin-top:6px}
+.qx-legend i{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:6px;vertical-align:3px}
+.qx-tip{position:absolute;z-index:20;pointer-events:none;background:#0b0f15;border:1px solid var(--line2);border-radius:4px;padding:6px 9px;font:11.5px var(--mono);color:var(--tx);box-shadow:0 6px 24px rgba(0,0,0,.5);display:none;min-width:160px;font-variant-numeric:tabular-nums}
+.qx-tip .h{color:var(--ac);margin-bottom:3px}
+.qx-tip .r{display:flex;gap:10px;justify-content:space-between}
+.qx-tip .r span:first-child{color:var(--mu)}
+.qx-tip .sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.qx-tw{max-height:440px;overflow:auto}
+.qx table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.qx th{position:sticky;top:0;background:var(--panel);text-align:right;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:400;padding:7px 8px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.qx th.s{cursor:pointer;user-select:none}.qx th.s:hover{color:var(--tx)}
+.qx th[aria-sort=descending]::after{content:" ↓";color:var(--ac)}.qx th[aria-sort=ascending]::after{content:" ↑";color:var(--ac)}
+.qx td{padding:6px 8px;border-bottom:1px solid #161d26;text-align:right;white-space:nowrap;font-family:var(--mono);font-size:11.5px}
+.qx .l{text-align:left}
+.qx td.l{font-family:var(--font-anthropic-sans);font-size:12px}
+.qx td.tk{font-family:var(--mono);color:var(--ac);text-align:left}
+.qx td.nm{max-width:240px;overflow:hidden;text-overflow:ellipsis}
+.qx tbody tr:hover td{background:#141b24}
+.qx tr.sel td{background:rgba(245,166,35,.07)}
+.qx .bar{display:inline-block;height:5px;border-radius:2px;background:var(--bl);margin-right:6px;vertical-align:1px}
+.qx .tag{display:inline-block;font:10px var(--mono);padding:1px 6px;border-radius:3px;border:1px solid var(--line2);color:var(--mu)}
+.qx td.act::before{display:inline-block;font:10px var(--mono);padding:0 6px;border-radius:3px;border:1px solid var(--line2);color:var(--mu);margin-right:8px}
+.qx td.act-compra::before{content:'compra';color:var(--up);border-color:rgba(34,197,94,.4)}.qx td.act-aumenta::before{content:'aumenta';color:var(--up);border-color:rgba(34,197,94,.4)}
+.qx td.act-vendi::before{content:'vendi';color:var(--dn);border-color:rgba(239,68,68,.4)}.qx td.act-riduci::before{content:'riduci';color:var(--dn);border-color:rgba(239,68,68,.4)}.qx td.act-tieni::before{content:'tieni'}
+.qx td.held::after{content:'in portafoglio';font:9.5px var(--mono);color:var(--ac);border:1px solid rgba(245,166,35,.4);border-radius:3px;padding:0 5px;margin-left:6px}
+@container qx (max-width:720px){.qx .hn{display:none}}
+@container qx (max-width:520px){
+  .qx .hx{display:none}
+  .qx-top{flex-direction:column;align-items:flex-start}.qx-meta{text-align:left}
+  .qx-h1{font-size:21px}.qx-take{font-size:12.5px}
+  .qx-strip{grid-template-columns:repeat(2,1fr)}.qx-k{min-height:58px;padding:8px 10px}.qx-kv{font-size:15px}
+  .qx-tabs button{padding:8px 10px;font-size:11.5px}
+  .qx-grid{gap:10px}.qx-card{padding:10px 11px}
+  .qx-ins li{grid-template-columns:1fr;gap:2px}
+  .qx-ctrl{flex-direction:column;align-items:stretch}.qx-seg{width:100%}.qx-seg button{flex:1;padding:6px 6px}
+  .qx-rng{width:100%}.qx-rng input{flex:1;width:auto}
+  .qx td,.qx th{padding:6px 5px}.qx td.nm{max-width:130px}
+}
+@container qx (min-width:1100px){.qx-strip{grid-template-columns:repeat(8,1fr)}}
+@container qx (min-width:1400px){.qx-grid{grid-template-columns:repeat(auto-fit,minmax(30rem,1fr));gap:14px}.qx-card{padding:14px 18px}.qx-kv{font-size:19px}}
+.qx-ctrl{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin:2px 0 10px}
+.qx-seg{display:inline-flex;border:1px solid var(--line2);border-radius:5px;overflow:hidden}
+.qx-seg button{background:transparent;color:var(--mu);border:0;border-right:1px solid var(--line2);padding:5px 11px;font:11.5px var(--font-anthropic-sans);cursor:pointer}
+.qx-seg button:last-child{border-right:0}
+.qx-seg button[aria-pressed=true]{background:#1b2430;color:#fff}
+.qx-seg button i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.qx-rng{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--mu)}
+.qx-rng input{accent-color:var(--ac);width:min(220px,48vw)}
+.qx-rng output{font-family:var(--mono);color:#fff;min-width:82px}
+.qx-ins{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.qx-ins li{display:grid;grid-template-columns:96px 1fr;gap:12px;font-size:12.5px;line-height:1.5;padding:7px 0;border-bottom:1px solid #161d26}
+.qx-ins li:last-child{border-bottom:0}
+.qx-ins .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);padding-top:2px}
+.qx-ins li.g .k{color:var(--up)}.qx-ins li.w .k{color:var(--ac)}.qx-ins li.b .k{color:var(--dn)}
+.qx-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:0;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.qx-stats>div{padding:8px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.qx-stats .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.qx-stats .v{font-family:var(--mono);font-size:15px;color:#fff;margin-top:3px;font-variant-numeric:tabular-nums}
+.qx .qx-stress{table-layout:fixed;min-width:360px}
+.qx .qx-stress col.c0{width:32%}
+.qx .qx-stress th{white-space:normal;vertical-align:bottom;line-height:1.25}
+.qx .qx-stress th small{display:block;font-size:8.5px;letter-spacing:.06em;color:var(--dim);text-transform:none;margin-top:2px}
+.qx .qx-stress td.l{overflow:hidden;text-overflow:ellipsis}
+.qx .qx-stress td.l i{vertical-align:0}
+.qx-pacs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:12px}
+.qx-pac{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.qx-pac.new{border-color:rgba(245,166,35,.55);box-shadow:inset 0 2px 0 var(--ac)}
+.qx-pac h3{margin:0;font-size:13.5px;font-weight:500;color:#fff;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.qx-pill{font:10px var(--mono);padding:1px 7px;border-radius:10px;border:1px solid var(--line2);color:var(--mu);white-space:nowrap}
+.qx-pill.on{color:var(--up);border-color:rgba(34,197,94,.45)}.qx-pill.new{color:var(--ac);border-color:rgba(245,166,35,.5)}.qx-pill.off{color:var(--dn);border-color:rgba(239,68,68,.45)}
+.qx-pac .sub{font-family:var(--mono);font-size:11px;color:var(--mu)}
+.qx-pac table td{font-size:11px;padding:4px 5px}.qx-pac table th{padding:5px;position:static}
+.qx-pac td.in::after{content:'✓';color:var(--up);margin-left:6px;font-size:10px}
+.qx-pac .rng{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mu);margin-top:auto}
+.qx-pac .rng input{flex:1;accent-color:var(--ac)}.qx-pac .rng output{font-family:var(--mono);color:#fff;min-width:74px;text-align:right}
+.qx-steps{margin:12px 0 0;padding-left:20px;font-size:12.5px;line-height:1.6;color:var(--tx)}
+.qx-steps li{margin-bottom:3px}.qx-steps b{color:var(--ac);font-weight:500}
+.qx-an-bar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.qx-an-list{display:flex;flex-direction:column;gap:10px;max-height:min(1400px,85vh);overflow-y:auto;overscroll-behavior:contain;padding-right:4px;scrollbar-width:thin}
+.qx details.qx-an{margin:0;border:1px solid var(--line);border-radius:6px;background:var(--panel2);padding:0;color:var(--tx);font-size:13px}
+.qx details.qx-an>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:11px 14px 11px 34px;position:relative;font-family:var(--font-anthropic-sans);letter-spacing:0;text-transform:none;color:#fff;font-size:14px;font-weight:500}
+.qx details.qx-an>summary::-webkit-details-marker{display:none}
+.qx details.qx-an>summary::before{content:'▸';position:absolute;left:14px;top:10px;color:var(--ac);transition:transform .15s}
+.qx details.qx-an[open]>summary::before{transform:rotate(90deg)}
+.qx details.qx-an>summary .m{font-family:var(--mono);font-size:10.5px;color:var(--mu);font-weight:400}
+.qx details.qx-an[open]>summary{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel2);z-index:2}
+.qx-an-body{padding:12px}
+.qx-note{font-size:11.5px;color:var(--dim);margin-top:8px;line-height:1.5}
+.qx details{margin-top:16px;color:var(--mu);font-size:12px;line-height:1.55;border-top:1px solid var(--line);padding-top:10px}
+.qx summary{cursor:pointer;font-family:var(--mono);letter-spacing:.14em;font-size:10.5px;text-transform:uppercase;color:var(--ac)}
+.qx details p{margin:7px 0}
+.qx .fail{display:flex;align-items:center;justify-content:center;gap:8px;min-height:inherit;color:var(--mu);font-size:12px}
+.qx .fail::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dn)}
+.qx [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+.qx [data-dash-source-state=empty]{color:transparent}
+</style>
+
+<div class="qx" id="qx">
+  <div class="qx-tip" aria-hidden="true"></div>
+
+  <header class="qx-top" id="top">
+    <div>
+      <div class="qx-brand">Portfolio analytics · XTB</div>
+      <h1 class="qx-h1">Portafoglio XTB</h1>
+    </div>
+    <div class="qx-meta" data-source="risk">Conti <b>[CONTO INVESTIMENTI]</b> · <b>[CONTO LIQUIDITÀ]</b><br>Dati al <b id="asof">—</b> · EUR</div>
+  </header>
+  <p class="qx-take" id="takeaway" data-source="risk excess portfolios"><span class="dash-skeleton">—</span></p>
+
+  <section class="qx-strip" id="kpis">
+    <div class="qx-k"><div class="qx-kl">NAV</div><div class="qx-kv" data-source="risk" data-field="equity" data-row="0">—</div><div class="qx-ks">versato <span data-source="risk" data-field="net_deposits" data-row="0">—</span></div></div>
+    <div class="qx-k"><div class="qx-kl">P/L totale</div><div class="qx-kv" data-source="risk" data-field="pnl" data-row="0">—</div><div class="qx-ks">unreal. <span data-source="risk" data-field="unrealized" data-row="0">—</span></div></div>
+    <div class="qx-k"><div class="qx-kl">TWR periodo</div><div class="qx-kv" data-source="risk" data-field="twr" data-row="0">—</div><div class="qx-ks">α vs VWCE <span data-source="excess" data-field="excess" data-row="0">—</span></div></div>
+    <div class="qx-k"><div class="qx-kl">XIRR ann.</div><div class="qx-kv" data-source="risk" data-field="xirr" data-row="0">—</div><div class="qx-ks">money-weighted</div></div>
+    <div class="qx-k"><div class="qx-kl">σ ex-ante</div><div class="qx-kv" data-source="risk" data-field="vol_exante" data-row="0">—</div><div class="qx-ks">VWCE <span data-source="risk" data-field="bench_vol" data-row="0">—</span></div></div>
+    <div class="qx-k"><div class="qx-kl">β vs VWCE</div><div class="qx-kv" data-source="risk" data-field="beta_exante" data-row="0">—</div><div class="qx-ks">ρ <span data-source="risk" data-field="corr_bench" data-row="0">—</span></div></div>
+    <div class="qx-k"><div class="qx-kl">VaR 95% 1g</div><div class="qx-kv" data-source="risk" data-field="var95_1d_eur" data-row="0">—</div><div class="qx-ks">CVaR <span data-source="risk" data-field="cvar95_1d" data-row="0">—</span></div></div>
+    <div class="qx-k"><div class="qx-kl">Max DD</div><div class="qx-kv" data-source="risk" data-field="maxdd_real" data-row="0">—</div><div class="qx-ks">Sharpe <span data-source="risk" data-field="sharpe_real" data-row="0">—</span></div></div>
+  </section>
+
+  <nav class="qx-tabs" role="tablist" aria-label="Sezioni">
+    <button role="tab" data-tab="panoramica" aria-selected="true">Panoramica</button>
+    <button role="tab" data-tab="rischio" aria-selected="false">Rischio</button>
+    <button role="tab" data-tab="ottimizzazione" aria-selected="false">Ottimizzazione</button>
+    <button role="tab" data-tab="analisi" aria-selected="false">Analisi personali</button>
+    <button role="tab" data-tab="piano" aria-selected="false">Piano PAC</button>
+    <button role="tab" data-tab="proiezioni" aria-selected="false">Proiezioni</button>
+    <button role="tab" data-tab="operativita" aria-selected="false">Operatività</button>
+  </nav>
+
+  <!-- PANORAMICA -->
+  <section class="qx-page" id="panoramica">
+    <div class="qx-grid">
+      <div class="qx-card qx-wide" id="card-sintesi">
+        <h2 class="qx-ct">Sintesi <small>findings</small></h2>
+        <ul class="qx-ins" id="insights" data-source="risk positions corr excess portfolios" style="margin-top:6px"></ul>
+      </div>
+      <div class="qx-card qx-wide" id="card-equity">
+        <h2 class="qx-ct">NAV vs capitale versato <small>giornaliero</small></h2>
+        <p class="qx-cn">Valore ricostruito da movimenti e prezzi di chiusura. La distanza tra le due linee è il P/L.</p>
+        <div class="qx-chart dash-skeleton" id="ch-equity" data-source="equity" style="min-height:260px"></div>
+        <div class="qx-legend"><span><i style="background:var(--bl)"></i>NAV</span><span><i style="background:var(--ac)"></i>Capitale versato netto</span></div>
+      </div>
+      <div class="qx-card" id="card-perf">
+        <h2 class="qx-ct">TWR vs benchmark <small>base 100</small></h2>
+        <p class="qx-cn">Rendimento time-weighted contro VWCE dal primo deposito.</p>
+        <div class="qx-chart dash-skeleton" id="ch-perf" data-source="equity" style="min-height:220px"></div>
+        <div class="qx-legend"><span><i style="background:var(--bl)"></i>Portafoglio</span><span><i style="background:var(--mu)"></i>VWCE</span></div>
+      </div>
+      <div class="qx-card" id="card-dd">
+        <h2 class="qx-ct">Underwater <small>drawdown TWR</small></h2>
+        <p class="qx-cn">Distanza dal massimo precedente.</p>
+        <div class="qx-chart dash-skeleton" id="ch-dd" data-source="equity" style="min-height:220px"></div>
+      </div>
+      <div class="qx-card" id="card-alloc">
+        <h2 class="qx-ct">Allocazione <small>asset class</small></h2>
+        <p class="qx-cn">Valore di mercato, liquidità inclusa.</p>
+        <div class="qx-chart dash-skeleton" id="ch-alloc" data-source="allocation" style="min-height:200px"></div>
+        <div class="qx-legend" id="lg-alloc" data-source="allocation"></div>
+      </div>
+      <div class="qx-card" id="card-riskw">
+        <h2 class="qx-ct">Peso vs contributo al rischio <small>top 12</small></h2>
+        <p class="qx-cn">Contributo marginale alla varianza ex-ante (w·Σw / σ²).</p>
+        <div class="qx-chart dash-skeleton" id="ch-riskw" data-source="positions" style="min-height:280px"></div>
+        <div class="qx-legend"><span><i style="background:var(--bl)"></i>Peso</span><span><i style="background:var(--ac)"></i>Contributo al rischio</span></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-pos">
+        <h2 class="qx-ct">Posizioni aperte <small>aggregate per ticker</small></h2>
+        <p class="qx-cn">σ e β su 1 anno di rendimenti giornalieri in EUR; β rispetto a VWCE. Clic sulle intestazioni per ordinare.</p>
+        <div class="qx-tw">
+          <table id="tbl-pos" data-source="positions" data-row-key="ticker">
+            <thead><tr>
+              <th class="l s" data-field="ticker">Ticker</th><th class="l s" data-field="name">Strumento</th><th class="l s hn" data-field="category">Tipo</th>
+              <th class="s" data-field="value" aria-sort="descending">Valore</th><th class="s" data-field="weight">Peso</th><th class="s hx" data-field="pnl">P/L</th><th class="s" data-field="ret_pct">P/L %</th>
+              <th class="s hn" data-field="vol_ann">σ 1a</th><th class="s hn" data-field="beta">β</th><th class="s" data-field="risk_share">Rischio</th><th class="s hn" data-field="ret_1y">Rend. 1a</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISCHIO -->
+  <section class="qx-page" id="rischio" hidden>
+    <div class="qx-grid">
+      <div class="qx-card" id="card-rollvol">
+        <h2 class="qx-ct">Volatilità rolling 3 mesi <small>pesi attuali, 5 anni</small></h2>
+        <p class="qx-cn">Volatilità annualizzata su 63 giorni del portafoglio di oggi applicato al passato, contro VWCE.</p>
+        <div class="qx-chart dash-skeleton" id="ch-rollvol" data-source="rolling" style="min-height:220px"></div>
+        <div class="qx-legend"><span><i style="background:var(--bl)"></i>Portafoglio</span><span><i style="background:var(--mu)"></i>VWCE</span></div>
+      </div>
+      <div class="qx-card" id="card-rollcorr">
+        <h2 class="qx-ct">Correlazione rolling con VWCE <small>63 giorni</small></h2>
+        <p class="qx-cn">Sopra 0,9 il portafoglio è di fatto un'esposizione all'indice globale con leva sui titoli satellite.</p>
+        <div class="qx-chart dash-skeleton" id="ch-rollcorr" data-source="rolling" style="min-height:220px"></div>
+      </div>
+      <div class="qx-card" id="card-dist">
+        <h2 class="qx-ct">Distribuzione dei rendimenti giornalieri <small>2 anni</small></h2>
+        <p class="qx-cn">Istogramma contro una normale con stessa media e varianza: le code grasse sono il rischio che il VaR parametrico sottostima.</p>
+        <div class="qx-chart dash-skeleton" id="ch-dist" data-source="dist" style="min-height:220px"></div>
+        <div class="qx-legend"><span><i style="background:var(--bl)"></i>Osservato</span><span><i style="background:var(--ac)"></i>Normale</span></div>
+      </div>
+      <div class="qx-card" id="card-stress">
+        <h2 class="qx-ct">Stress test storici <small>pesi attuali</small></h2>
+        <p class="qx-cn">Rendimento del portafoglio di oggi (e delle alternative) se avesse attraversato tre episodi recenti.</p>
+        <div class="qx-tw" style="max-height:none">
+        <table id="tbl-stress" class="qx-stress" data-source="portfolios" data-row-key="id">
+          <colgroup><col class="c0"><col><col><col><col></colgroup>
+          <thead><tr><th class="l" data-field="name">Portafoglio</th><th data-field="s2022">2022<small>tassi</small></th><th data-field="s2024">Ago 24<small>yen carry</small></th><th data-field="s2025">Apr 25<small>dazi</small></th><th data-field="maxdd_bt">Max DD<small>5 anni</small></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        </div>
+        <p class="qx-note">Bear 2022: 3/1–12/10/2022 (rialzo tassi, azioni e bond giù insieme). Carry yen: 10/7–5/8/2024. Dazi: 19/2–8/4/2025.</p>
+      </div>
+      <div class="qx-card qx-wide" id="card-corr">
+        <h2 class="qx-ct">Matrice di correlazione <small>top 10 posizioni, 1 anno</small></h2>
+        <p class="qx-cn">Correlazione dei rendimenti giornalieri in EUR.</p>
+        <div class="qx-chart dash-skeleton" id="ch-corr" data-source="corr" style="min-height:300px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTTIMIZZAZIONE -->
+  <section class="qx-page" id="ottimizzazione" hidden>
+    <div class="qx-grid">
+      <div class="qx-card qx-wide" id="card-cmp">
+        <h2 class="qx-ct">Portafogli a confronto <small>ex-ante · backtest 5a · out-of-sample</small></h2>
+        <p class="qx-cn">Quattro allocazioni ottimizzate sull'universo di ETF UCITS quotati su Xetra (negoziabili su XTB) più le tue azioni come blocco satellite, max 20% per strumento e 10% per satellite e liquidità. Pesi ricampionati con 60 bootstrap per ridurre l'errore di stima. Clic su una riga per selezionarla.</p>
+        <div class="qx-tw" style="max-height:none">
+          <table id="tbl-cmp" data-source="portfolios" data-row-key="id">
+            <thead><tr>
+              <th class="l" data-field="name">Portafoglio</th><th data-field="mu">E[r]</th><th data-field="vol">σ</th><th data-field="sharpe" class="hx">Sharpe</th>
+              <th data-field="cvar95w" class="hn">CVaR 95% sett.</th><th data-field="corr_vwce">ρ VWCE</th><th data-field="avg_corr" class="hn">ρ media</th><th data-field="eff_n" class="hn">N eff.</th>
+              <th data-field="cagr_bt" class="hx">CAGR 5a</th><th data-field="maxdd_bt">Max DD 5a</th><th data-field="calmar" class="hn">Calmar</th><th data-field="oos_cagr" class="hx">CAGR OOS</th><th data-field="oos_maxdd">DD OOS</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="qx-note">E[r]: rendimento atteso annuo da capital market assumptions (non dal passato). σ: covarianza settimanale 5 anni con shrinkage Ledoit-Wolf. OOS: pesi stimati solo su 2021–2023 e testati su 2024–oggi. Il backtest del portafoglio attuale è gonfiato dal senno di poi: contiene titoli comprati dopo forti rialzi.</p>
+      </div>
+      <div class="qx-card" id="card-frontier">
+        <h2 class="qx-ct">Frontiera efficiente <small>E[r] vs σ</small></h2>
+        <p class="qx-cn">Ogni punto grigio è uno strumento dell'universo. A sinistra e in alto è meglio.</p>
+        <div class="qx-chart dash-skeleton" id="ch-frontier" data-source="frontier" style="min-height:320px"></div>
+      </div>
+      <div class="qx-card" id="card-weights">
+        <h2 class="qx-ct">Composizione per asset class</h2>
+        <p class="qx-cn">Pesi per classe in ciascun portafoglio.</p>
+        <div class="qx-chart dash-skeleton" id="ch-weights" data-source="weights" style="min-height:240px"></div>
+        <div class="qx-legend" id="lg-weights"></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-bt">
+        <h2 class="qx-ct">Backtest 5 anni <small>ribilanciamento mensile, base 100</small></h2>
+        <p class="qx-cn">Pesi costanti applicati ai prezzi dal 4/1/2021. Sotto, il drawdown di ciascun portafoglio.</p>
+        <div class="qx-chart dash-skeleton" id="ch-bt" data-source="backtest" style="min-height:260px"></div>
+        <div class="qx-chart dash-skeleton" id="ch-btdd" data-source="backtest" style="min-height:140px;margin-top:6px"></div>
+        <div class="qx-legend" id="lg-bt"></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-trades">
+        <h2 class="qx-ct">Operazioni per passare alla proposta <small id="trade-title">—</small></h2>
+        <div class="qx-ctrl"><div class="qx-seg" id="prop-seg" role="group" aria-label="Proposta" data-source="portfolios"></div></div>
+        <div class="qx-tw">
+          <table id="tbl-trades" data-source="weights" data-row-key="portfolio,ticker">
+            <thead><tr><th class="l" data-field="ticker">Ticker</th><th class="l" data-field="name">Strumento</th><th class="l hn" data-field="cls">Classe</th><th data-field="current" class="hx">Peso oggi</th><th data-field="target">Peso target</th><th data-field="current_eur" class="hn">Oggi €</th><th data-field="target_eur">Target €</th><th data-field="delta_eur">Operazione €</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="qx-note" id="trade-note" data-source="weights"></p>
+      </div>
+      <div class="qx-card qx-wide" id="card-screener">
+        <h2 class="qx-ct">Screener diversificatori <small>effetto di +10% sul portafoglio attuale</small></h2>
+        <p class="qx-cn">Per ogni strumento: cosa succede se sposti il 10% del portafoglio su di esso (finanziato in proporzione da tutto il resto). Ordinato per miglioramento dello Sharpe atteso. Verde = migliora.</p>
+        <div class="qx-tw">
+          <table id="tbl-scr" data-source="screener" data-row-key="ticker">
+            <thead><tr>
+              <th class="l s" data-field="ticker">Ticker</th><th class="l s" data-field="name">Strumento</th><th class="l s hn" data-field="cls">Classe</th>
+              <th class="s" data-field="corr_port">ρ port.</th><th class="s hn" data-field="beta_vwce">β</th><th class="s hx" data-field="mu">E[r]</th><th class="s hn" data-field="vol">σ</th>
+              <th class="s hn" data-field="cagr_5y">CAGR 5a</th><th class="s hn" data-field="maxdd_5y">DD 5a</th>
+              <th class="s" data-field="d_vol">Δσ</th><th class="s hx" data-field="d_mu">ΔE[r]</th><th class="s" data-field="d_sharpe" aria-sort="descending">ΔSharpe</th><th class="s" data-field="d_maxdd">ΔMax DD</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALISI PERSONALI -->
+  <section class="qx-page" id="analisi" hidden>
+    <div class="qx-an-bar">
+      <p class="qx-cn" style="margin:0">Le analisi che mi hai chiesto, dalla più recente. Clic sul titolo per aprire o chiudere.</p>
+      <div class="qx-seg" role="group" aria-label="Apri o chiudi tutte"><button type="button" id="an-open">Apri tutte</button><button type="button" id="an-close">Chiudi tutte</button></div>
+    </div>
+    <div class="qx-an-list" id="an-list">
+      <details class="qx-an" id="an-fondamentali" open>
+        <summary><span class="t">Microsoft, Alphabet, Stellantis: analisi fondamentale di lungo periodo</span><span class="m">28/10/2026 · aggiornata 30/10/2026 dopo i trimestrali</span></summary>
+        <div class="qx-an-body">
+        <div class="qx-grid">
+      <div class="qx-card qx-wide" id="card-f-score">
+        <h2 class="qx-ct">Microsoft, Alphabet, Stellantis <small>analisi fondamentale di lungo periodo</small></h2>
+        <p class="qx-cn" id="f-take" data-source="fund_summary">—</p>
+        <div class="qx-tw" style="max-height:none">
+          <table id="tbl-f-score" data-source="fund_summary" data-row-key="company">
+            <thead><tr><th class="l" data-field="name">Società</th><th data-field="score_quality">Qualità</th><th data-field="score_growth">Crescita</th><th data-field="score_value">Valutazione</th><th data-field="score_balance">Solidità</th><th data-field="score_fit">Diversif.</th><th data-field="suggested_w" class="hx">Peso max</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="qx-note">Punteggi 1–5 con regole fisse: Qualità = ROCE medio 5 anni; Crescita = CAGR ricavi 5 anni; Valutazione = rendimento degli utili operativi netti sul prezzo; Solidità = cassa netta e FCF positivi; Diversificazione = effetto di un 5% su volatilità, drawdown e correlazione del portafoglio obiettivo Ottimale + Oro.</p>
+      </div>
+      <div class="qx-card qx-wide" id="card-f-val">
+        <h2 class="qx-ct">Valutazione e rendimento atteso a 10 anni</h2>
+        <p class="qx-cn">P/E rett. = capitalizzazione / utile operativo dopo le tasse (esclude plusvalenze una tantum). Crescita implicita = crescita annua degli utili per 10 anni che giustifica il prezzo con costo del capitale 8,5% e crescita terminale 3%. Scenari = rendimento annuo con le ipotesi di crescita e multiplo di uscita indicate sotto.</p>
+        <div class="qx-tw" style="max-height:none">
+          <table id="tbl-f-val" data-source="fund_summary" data-row-key="company">
+            <thead><tr><th class="l" data-field="name">Società</th><th data-field="price">Prezzo</th><th data-field="mcap" class="hn">Capitalizz. (mld)</th><th data-field="pe" class="hx">P/E</th><th data-field="pe_adj">P/E rett.</th><th data-field="ev_ebit" class="hn">EV/EBIT</th><th data-field="fcf_yield">FCF yield</th><th data-field="sh_yield" class="hn">Div.+buyback</th><th data-field="implied_g">Crescita implicita</th><th data-field="r_pessimista" class="hx">Pessimista</th><th data-field="r_base">Base</th><th data-field="r_ottimista" class="hx">Ottimista</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="qx-note">Scenari (crescita utili / P/E di uscita): Microsoft 7%/20×, 11%/25×, 15%/30×; Alphabet 6%/17×, 10%/22×, 14%/27×; più metà dell'attuale rendimento da dividendi e buyback. Stellantis: ricavi +3%/anno e margine operativo 1,5% / 4% / 6,5% con P/E 5× / 7× / 8×; nel pessimista +30% di azioni (aumento di capitale), negli altri dividendo al 3%. Stellantis non ha utili da misurare: P/S 0,07×, P/B 0,21×.</p>
+      </div>
+      <div class="qx-card" id="card-f-ret">
+        <h2 class="qx-ct">Forchetta di rendimento annuo a 10 anni</h2>
+        <p class="qx-cn">Pessimista – base – ottimista, contro il rendimento atteso dell'obiettivo Ottimale + Oro (linea tratteggiata).</p>
+        <div class="qx-chart dash-skeleton" id="ch-f-ret" data-source="fund_summary portfolios" style="min-height:200px"></div>
+      </div>
+      <div class="qx-card" id="card-f-px">
+        <h2 class="qx-ct">Rendimento totale in euro <small>10 anni, base 100</small></h2>
+        <p class="qx-cn">Prezzi con dividendi reinvestiti, convertiti in euro. Scala logaritmica.</p>
+        <div class="qx-chart dash-skeleton" id="ch-f-px" data-source="fund_prices" style="min-height:220px"></div>
+        <div class="qx-legend" id="lg-f-px"></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-f-rev">
+        <h2 class="qx-ct">Ricavi e margine operativo <small>bilanci annuali SEC</small></h2>
+        <p class="qx-cn">Barre: ricavi (mld $ per Microsoft e Alphabet, mld € per Stellantis). Linea: margine operativo. Microsoft chiude l'anno fiscale a giugno. Stellantis esiste dal 2021 (fusione FCA–PSA); il 2025 include 25,4 mld € di oneri straordinari.</p>
+        <div class="qx-chart dash-skeleton" id="ch-f-rev" data-source="fund_annual" style="min-height:230px"></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-f-fcf">
+        <h2 class="qx-ct">Cassa generata e investimenti</h2>
+        <p class="qx-cn">Barre: free cash flow. Linea: capex in % dei ricavi. Per Stellantis l'FCF industriale riportato dalla società. Il boom degli investimenti in AI comprime la cassa di Microsoft e Alphabet.</p>
+        <div class="qx-chart dash-skeleton" id="ch-f-fcf" data-source="fund_annual" style="min-height:230px"></div>
+      </div>
+      <div class="qx-card" id="card-f-roic">
+        <h2 class="qx-ct">Rendimento del capitale (ROCE)</h2>
+        <p class="qx-cn">Utile operativo dopo il 20% di tasse / (patrimonio netto + debito).</p>
+        <div class="qx-chart dash-skeleton" id="ch-f-roic" data-source="fund_annual" style="min-height:220px"></div>
+        <div class="qx-legend" id="lg-f-roic"></div>
+      </div>
+      <div class="qx-card" id="card-f-fit">
+        <h2 class="qx-ct">Effetto sul portafoglio obiettivo <small>+5%</small></h2>
+        <p class="qx-cn">Rendimenti settimanali in EUR 2021–2026. Δ = cambiamento se il titolo pesa il 5% dell'Ottimale + Oro.</p>
+        <div class="qx-tw" style="max-height:none">
+          <table id="tbl-f-fit" data-source="fund_summary" data-row-key="company">
+            <thead><tr><th class="l" data-field="name">Società</th><th data-field="vol">σ</th><th data-field="beta_vwce" class="hx">β</th><th data-field="corr_target">ρ obiettivo</th><th data-field="d_vol_5">Δσ</th><th data-field="d_rho_5">Δρ VWCE</th><th data-field="d_dd_5">ΔMax DD</th><th data-field="maxdd_10y" class="hn">DD 10a</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="qx-pacs qx-wide" id="f-cards" data-source="fund_summary"></div>
+    </div>
+        </div>
+      </details>
+      <details class="qx-an" id="an-dip">
+        <summary><span class="t">Ricaricare il PAC A durante i crolli del tech</span><span class="m">28/10/2026 · backtest gen 2021 – ott 2026</span></summary>
+        <div class="qx-an-body">
+          <div class="qx-grid">
+            <div class="qx-card qx-wide" id="card-dip-sum">
+              <h2 class="qx-ct">Cosa succede con ricariche sporadiche del PAC A <small>simulazione mensile</small></h2>
+              <p class="qx-cn" id="dip-take" data-source="dip_summary">—</p>
+              <div class="qx-tw" style="max-height:none">
+                <table id="tbl-dip" data-source="dip_summary" data-row-key="id">
+                  <thead><tr><th class="l" data-field="name">Strategia</th><th data-field="buys">Ricariche</th><th data-field="invested" class="hx">Versato</th><th data-field="value" class="hn">Investito</th><th data-field="liquidity" class="hn">Liquidità</th><th data-field="total">Patrimonio</th><th data-field="delta_total">vs base</th><th data-field="tech" class="hx">Peso tech</th></tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <p class="qx-note">Regole simulate: ogni mese 240 € nel PAC C (pesi Ottimale + Oro) e 80 € sul conto liquidità (1,48% netto), partendo con 1.000 € di liquidità. Ricarica: 200 € dal conto liquidità al PAC A (40% Nasdaq 100, 60% MSCI World/All-World) in ogni mese di chiusura con SXRV almeno 20% (o 15%) sotto il massimo, solo se restano almeno 500 € di riserva. Prezzi reali rettificati in EUR. Un solo vero crollo nel periodo (2022): campione favorevole, il Nasdaq ha recuperato in fretta; nel 2000–2002 perse circa l'80% e impiegò circa 15 anni a tornare ai massimi.</p>
+            </div>
+            <div class="qx-card qx-wide" id="card-dip-chart">
+              <h2 class="qx-ct">Patrimonio nel tempo e ribassi del Nasdaq</h2>
+              <p class="qx-cn">Sopra: patrimonio totale (investito + liquidità) delle strategie; i punti indicano i mesi di ricarica del PAC A con soglia −20%. Sotto: distanza del Nasdaq 100 dal massimo.</p>
+              <div class="qx-chart dash-skeleton" id="ch-dip" data-source="dip_series" style="min-height:300px"></div>
+              <div class="qx-legend" id="lg-dip"></div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- PIANO PAC -->
+  <section class="qx-page" id="piano" hidden>
+    <div class="qx-grid">
+      <div class="qx-card qx-wide" id="card-pac-intro">
+        <h2 class="qx-ct">Ribilanciare con i versamenti <small>senza vendere</small></h2>
+        <p class="qx-cn" id="pac-take" data-source="pacs model">—</p>
+        <div class="qx-ctrl">
+          <div class="qx-seg" id="pac-preset" role="group" aria-label="Preset"></div>
+          <label class="qx-rng" style="gap:8px"><input type="checkbox" id="pac-deploy" style="width:auto"> Investi nel PAC C la liquidità residua del conto investimenti (altrimenti va sul conto liquidità)</label>
+        </div>
+      </div>
+      <div class="qx-pacs qx-wide" id="pac-cards" data-source="pacs liquidity"></div>
+      <div class="qx-card" id="card-pac-dist">
+        <h2 class="qx-ct">Distanza dal portafoglio Ottimale + Oro <small>48 mesi</small></h2>
+        <p class="qx-cn">Quota del portafoglio investito da spostare per coincidere con l'obiettivo Ottimale + Oro (½ Σ|w − w*|), con i versamenti scelti e prezzi costanti. Sotto il 10% il ribilanciamento è di fatto completato.</p>
+        <div class="qx-chart dash-skeleton" id="ch-pac-dist" data-source="pacs model" style="min-height:220px"></div>
+      </div>
+      <div class="qx-card" id="card-pac-metrics">
+        <h2 class="qx-ct">Rischio e rendimento atteso mese per mese</h2>
+        <p class="qx-cn">E[r], σ e correlazione con VWCE del portafoglio investito che si forma. Tratteggio = valori dell'obiettivo Ottimale + Oro.</p>
+        <div class="qx-chart dash-skeleton" id="ch-pac-metrics" data-source="pacs model cov" style="min-height:220px"></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-pac-wealth">
+        <h2 class="qx-ct">Investimenti e conto liquidità <small>versato + interessi</small></h2>
+        <p class="qx-cn">Capitale investito (versamenti, prezzi costanti) e saldo del conto liquidità con interessi netti. La linea indica la quota di liquidità sul patrimonio.</p>
+        <div class="qx-chart dash-skeleton" id="ch-pac-wealth" data-source="pacs model liquidity" style="min-height:220px"></div>
+        <div class="qx-legend"><span><i style="background:#f5a623"></i>Investito</span><span><i style="background:#2dd4bf"></i>Conto liquidità</span><span><i style="background:#e3e9ef"></i>Quota liquidità (asse destro)</span></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-pac-table" data-source="pacs model cov liquidity">
+        <h2 class="qx-ct">Tappe del ribilanciamento</h2>
+        <div class="qx-tw" style="max-height:none">
+          <table id="tbl-pac"><thead><tr><th class="l">Mese</th><th class="hx">Versato inv.</th><th>Investito</th><th>Liquidità</th><th class="hx">Quota liq.</th><th>Distanza</th><th class="hn">E[r]</th><th>σ</th><th>ρ VWCE</th><th class="hn">Oro</th><th class="hn">Tech</th></tr></thead><tbody></tbody></table>
+        </div>
+        <ol class="qx-steps" id="pac-steps" data-source="pacs"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROIEZIONI -->
+  <section class="qx-page" id="proiezioni" hidden>
+    <div class="qx-card" id="card-mc">
+      <h2 class="qx-ct">Monte Carlo 10 anni <small>attuale vs proposta</small></h2>
+      <p class="qx-cn">2.000 percorsi mensili lognormali dal NAV di oggi, con E[r] e σ di ciascun portafoglio e lo stesso PAC. Bande colorate: proposta selezionata (5–95 e 25–75 percentile). Linee grigie: portafoglio attuale (mediana e 5° percentile).</p>
+      <div class="qx-ctrl">
+        <div class="qx-seg" id="mc-prop" role="group" aria-label="Proposta" data-source="portfolios"></div>
+        <div class="qx-seg" id="scen" role="group" aria-label="Scenario" data-source="scenarios"></div>
+        <label class="qx-rng">PAC <input type="range" id="pac" min="0" max="1000" step="10" aria-label="PAC mensile"><output id="pac-out">—</output></label>
+      </div>
+      <div class="qx-chart dash-skeleton" id="ch-mc" data-source="portfolios scenarios risk" style="min-height:300px"></div>
+      <div class="qx-legend"><span><i id="lg-mc-prop" style="background:var(--ac)"></i><span id="lg-mc-name">Proposta</span> (mediana e bande)</span><span><i style="background:var(--mu)"></i>Attuale mediana</span><span><i style="background:var(--dim)"></i>Attuale 5° percentile</span><span><i style="background:#fff;opacity:.5"></i>Versato</span></div>
+      <div class="qx-tw" style="max-height:none;margin-top:10px">
+        <table id="tbl-mc">
+          <thead><tr><th class="l">Orizzonte</th><th>Versato</th><th>Attuale P50</th><th class="hx">Attuale P5</th><th class="hn">P(perdita) att.</th><th id="mc-h1">Proposta P50</th><th id="mc-h2" class="hx">Proposta P5</th><th class="hn">P(perdita) prop.</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="qx-stats" id="mc-dd" data-source="portfolios scenarios risk" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- OPERATIVITÀ -->
+  <section class="qx-page" id="operativita" hidden>
+    <div class="qx-grid">
+      <div class="qx-card" id="card-flows">
+        <h2 class="qx-ct">Flussi mensili</h2>
+        <p class="qx-cn">Depositi esterni, acquisti e vendite (trasferimenti tra conti esclusi).</p>
+        <div class="qx-chart dash-skeleton" id="ch-flows" data-source="flows" style="min-height:230px"></div>
+        <div class="qx-legend"><span><i style="background:var(--ac)"></i>Depositi</span><span><i style="background:var(--bl)"></i>Acquisti</span><span><i style="background:var(--vi)"></i>Vendite</span></div>
+      </div>
+      <div class="qx-card" id="card-real">
+        <h2 class="qx-ct">P/L realizzato per strumento <small>top / bottom 6</small></h2>
+        <p class="qx-cn">Posizioni chiuse dal 5 giugno, CFD inclusi.</p>
+        <div class="qx-chart dash-skeleton" id="ch-real" data-source="realized" style="min-height:280px"></div>
+      </div>
+      <div class="qx-card qx-wide" id="card-stats">
+        <h2 class="qx-ct">Statistiche di trading</h2>
+        <div class="qx-stats" style="margin-top:8px">
+          <div><div class="l">Realizzato</div><div class="v" data-source="risk" data-field="realized_total" data-row="0">—</div></div>
+          <div><div class="l">Trade chiusi</div><div class="v" data-source="risk" data-field="trades_closed" data-row="0">—</div></div>
+          <div><div class="l">Win rate</div><div class="v" data-source="risk" data-field="win_rate" data-row="0">—</div></div>
+          <div><div class="l">Profit factor</div><div class="v" data-source="risk" data-field="profit_factor" data-row="0">—</div></div>
+          <div><div class="l">Gain medio</div><div class="v" data-source="risk" data-field="avg_win" data-row="0">—</div></div>
+          <div><div class="l">Loss medio</div><div class="v" data-source="risk" data-field="avg_loss" data-row="0">—</div></div>
+          <div><div class="l">Dividendi</div><div class="v" data-source="risk" data-field="dividends" data-row="0">—</div></div>
+          <div><div class="l">Interessi</div><div class="v" data-source="risk" data-field="interest" data-row="0">—</div></div>
+          <div><div class="l">Tasse e costi</div><div class="v" data-source="risk" data-field="costs_total" data-row="0">—</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <details id="metodo">
+    <summary>Metodologia, ipotesi e limiti</summary>
+    <p><b>Dati.</b> Export XTB (Cash Operations, Closed/Open Positions) al 30/10/2026; il [CONTO LIQUIDITÀ] è trattato come conto liquidità separato: nelle schede Ottimizzazione e Piano PAC il portafoglio «Attuale» comprende solo il conto investimenti; prezzi giornalieri rettificati per dividendi da Yahoo Finance, convertiti in EUR. Strumenti con storia breve (SpaceX, Technoprobe prima del 2022) sono estesi con β × VWCE.</p>
+    <p><b>Performance.</b> TWR concatenato giornaliero con flussi a inizio giornata; XIRR sui depositi esterni. I CFD contano solo alla chiusura. Sharpe/Sortino con risk-free 2% su ~100 giorni: statisticamente fragili.</p>
+    <p><b>Rischio.</b> σ, β, VaR/CVaR storici 95%, contributo al rischio: pesi correnti su 1 anno di rendimenti giornalieri. Rolling e stress test: pesi correnti applicati a 5 anni di storia.</p>
+    <p><b>Ottimizzazione.</b> Rendimenti attesi (capital market assumptions, nominali EUR, lungo periodo): azionario globale 6,5%, USA/tech 6,2%, Europa e value 7%, dividendo 6,8%, small cap value ed emergenti 7,5%, min-vol 6%, immobiliare 6%, obbligazioni govt area euro 3%, aggregate globale coperto 3,2%, govt 25+ anni 3,6%, liquidità €STR 2%, oro 4%, materie prime 3,5%, azioni singole 7%. Sono ipotesi, non previsioni: i pesi ottimali cambiano se cambiano. Covarianza da rendimenti settimanali 2021–2026 (riduce lo sfasamento orario USA/Europa) con shrinkage Ledoit-Wolf. Difensivo e Ottimale minimizzano il CVaR settimanale 95% (Rockafellar-Uryasev, programmazione lineare) con vincolo di rendimento atteso; pesi mediati su 60 campioni bootstrap (ricampionamento alla Michaud). Ottimale + Oro: come Ottimale (stesso E[r] minimo) ma con oro fisico tra 10% e 20%. Crescita massimizza E[r] con σ ≤ σ attuale.</p>
+    <p><b>Limiti.</b> Il passato non garantisce il futuro; 5 anni contengono un solo ciclo di tassi. Costi di transazione, cambio valuta (0,5% XTB sui titoli USD) e tasse non sono modellati. In Italia le minusvalenze su azioni sono redditi diversi e non compensano le plusvalenze da ETF (redditi di capitale). Non è una raccomandazione d'investimento: verifica con un consulente prima di operare.</p>
+  </details>
+</div>
+
+<script>
+(() => {
+const root = document.getElementById('qx');
+const tip = root.querySelector('.qx-tip');
+const MESI = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+const fDay = d => `${d.getUTCDate()} ${MESI[d.getUTCMonth()]}`;
+const fDayY = d => `${d.getUTCDate()} ${MESI[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+const fMonY = d => `${MESI[d.getUTCMonth()]} ${String(d.getUTCFullYear()).slice(2)}`;
+const nf = o => new Intl.NumberFormat('it-IT', o);
+const eur = (v, d = 2) => nf({style:'currency',currency:'EUR',minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
+const eurS = (v, d = 2) => nf({style:'currency',currency:'EUR',minimumFractionDigits:d,maximumFractionDigits:d,signDisplay:'exceptZero'}).format(v);
+const eur0 = v => eur(v, 0);
+const eurK = v => Math.abs(v) >= 10000 ? nf({style:'currency',currency:'EUR',notation:'compact',maximumFractionDigits:1}).format(v) : eur0(v);
+const pct = (v, d = 1) => nf({style:'percent',minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
+const pctS = (v, d = 1) => nf({style:'percent',minimumFractionDigits:d,maximumFractionDigits:d,signDisplay:'exceptZero'}).format(v);
+const pp = (v, d = 1) => nf({minimumFractionDigits:d,maximumFractionDigits:d,signDisplay:'exceptZero'}).format(v * 100) + ' pp';
+const num = (v, d = 2) => nf({minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
+const numS = (v, d = 2) => nf({minimumFractionDigits:d,maximumFractionDigits:d,signDisplay:'exceptZero'}).format(v);
+const sgn = (el, v, inv) => { const s = inv ? -v : v; el.classList.toggle('pos', s > 0); el.classList.toggle('neg', s < 0); };
+const short = t => String(t).replace(/\.(US|DE|IT|UK|FR)$/, '');
+const C = {bl:'#60a5fa', ac:'#f5a623', te:'#2dd4bf', vi:'#a78bfa', mu:'#8593a3', dim:'#5b6878', up:'#22c55e', dn:'#ef4444', line:'#2c3846'};
+const PC = {attuale:'#8593a3', difensivo:'#2dd4bf', ottimale:'#f5a623', oro:'#facc15', crescita:'#a78bfa', vwce:'#60a5fa'};
+const PN = {attuale:'Attuale', difensivo:'Difensivo', ottimale:'Ottimale', oro:'Ottimale + Oro', crescita:'Crescita', vwce:'VWCE'};
+
+dash.calc('excess', {
+  inputs: ['risk'],
+  title: 'Extra-rendimento vs VWCE',
+  description: 'Rendimento TWR del portafoglio meno il rendimento di VWCE nello stesso periodo.',
+  fn: (risk) => [{ excess: risk[0].twr - risk[0].bench_ret }]
+});
+
+// ---------- helpers
+const st = id => dash.data(id);
+function ready(el, s) {
+  el.classList.toggle('dash-skeleton', s === 'loading');
+  if (['error','connect','declined','missing'].includes(s)) { el.replaceChildren(Object.assign(document.createElement('div'), {className:'fail', textContent:'Failed to load'})); return false; }
+  if (s !== 'ok') { el.replaceChildren(); return false; }
+  return true;
+}
+function showTip(evt, head, lines) {
+  tip.replaceChildren();
+  const h = document.createElement('div'); h.className = 'h'; h.textContent = head; tip.append(h);
+  for (const [lab, val, col] of lines) {
+    const r = document.createElement('div'); r.className = 'r';
+    const a = document.createElement('span');
+    if (col) { const s = document.createElement('i'); s.className = 'sw'; s.style.background = col; a.append(s); }
+    a.append(lab);
+    const b = document.createElement('span'); b.textContent = val; r.append(a, b); tip.append(r);
+  }
+  tip.style.display = 'block';
+  const rb = root.getBoundingClientRect();
+  let x = evt.clientX - rb.left + 14, y = evt.clientY - rb.top + 14;
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  if (x + tw > rb.width - 8) x = evt.clientX - rb.left - tw - 14;
+  if (y + th > rb.height - 8) y = evt.clientY - rb.top - th - 14;
+  tip.style.left = Math.max(8, x) + 'px'; tip.style.top = Math.max(8, y) + 'px';
+}
+const hideTip = () => { tip.style.display = 'none'; };
+const fit = (base, ratio) => w => Math.round(Math.max(base * .85, Math.min(base * 1.45, w * ratio)));
+const NARROW = w => w < 520;
+function mkSvg(el, hIn) {
+  el.replaceChildren();
+  const w = Math.max(260, el.clientWidth || 600);
+  const h = typeof hIn === 'function' ? hIn(w) : hIn;
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('height', h).attr('viewBox', `0 0 ${w} ${h}`).attr('role', 'img');
+  return {svg, w, h};
+}
+function textW(svg, strs) { const t = svg.append('text').attr('x', -999).attr('y', -999); let m = 0; for (const s of strs) { t.text(s); m = Math.max(m, t.node().getComputedTextLength()); } t.remove(); return m; }
+const clean = g => g.attr('font-size', null).attr('font-family', null);
+function timeAxis(svg, x, y0, w, fmt = fDay) { clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${y0})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.min(8, Math.floor(w / 90)))).tickFormat(fmt).tickSizeOuter(0))); }
+function yAxis(svg, y, ml, xr, fmt, n = 5) { const g = svg.append('g').attr('class', 'gridl').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(n).tickSize(-(xr - ml)).tickFormat(fmt)); clean(g); g.selectAll('text').attr('x', -6); }
+function hover(svg, x, data, x0, x1, top, bottom, onMove) {
+  const rule = svg.append('line').attr('y1', top).attr('y2', bottom).attr('stroke', '#5b6878').attr('stroke-dasharray', '3 3').style('display', 'none');
+  const dots = svg.append('g');
+  const bis = d3.bisector(d => d.d).center;
+  svg.append('rect').attr('x', x0).attr('y', top).attr('width', Math.max(0, x1 - x0)).attr('height', bottom - top).attr('fill', 'transparent')
+    .on('pointermove', ev => { const [mx] = d3.pointer(ev); const d = data[bis(data, x.invert(mx))]; rule.style('display', null).attr('x1', x(d.d)).attr('x2', x(d.d)); dots.selectAll('*').remove(); onMove(ev, d, dots); })
+    .on('pointerleave', () => { rule.style('display', 'none'); dots.selectAll('*').remove(); hideTip(); });
+}
+const line = (svg, data, x, y, k, col, w = 1.6, dash) => { const p = svg.append('path').datum(data).attr('fill', 'none').attr('stroke', col).attr('stroke-width', w).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round').attr('d', d3.line().defined(d => d[k] != null && !isNaN(d[k])).x(d => x(d.d)).y(d => y(d[k]))); if (dash) p.attr('stroke-dasharray', dash); return p; };
+
+// ---------- Panoramica charts
+function drawEquity(el, rows) {
+  const {svg, w, h} = mkSvg(el, fit(260, .26));
+  const data = rows.map(r => ({d: new Date(r.day), e: +r.equity, n: +r.net_deposits, p: +r.pnl}));
+  const y = d3.scaleLinear([0, d3.max(data, d => Math.max(d.e, d.n)) * 1.06], [h - 22, 8]).nice();
+  const ml = textW(svg, y.ticks(5).map(eur0)) + 12;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, eur0); timeAxis(svg, x, h - 22, w);
+  svg.append('path').datum(data).attr('fill', 'rgba(96,165,250,.10)').attr('d', d3.area().x(d => x(d.d)).y0(y(0)).y1(d => y(d.e)));
+  svg.append('path').datum(data).attr('fill', 'none').attr('stroke', C.ac).attr('stroke-width', 1.4).attr('stroke-dasharray', '4 3').attr('d', d3.line().curve(d3.curveStepAfter).x(d => x(d.d)).y(d => y(d.n)));
+  line(svg, data, x, y, 'e', C.bl, 1.8);
+  hover(svg, x, data, ml, w - 10, 8, h - 22, (ev, d, dots) => {
+    dots.append('circle').attr('cx', x(d.d)).attr('cy', y(d.e)).attr('r', 3.5).attr('fill', C.bl);
+    dots.append('circle').attr('cx', x(d.d)).attr('cy', y(d.n)).attr('r', 3).attr('fill', C.ac);
+    showTip(ev, fDayY(d.d), [['NAV', eur(d.e), C.bl], ['Versato', eur(d.n), C.ac], ['P/L', eurS(d.p)]]);
+  });
+}
+function drawPerf(el, rows) {
+  const {svg, w, h} = mkSvg(el, fit(220, .42));
+  const data = rows.map(r => ({d: new Date(r.day), p: +r.twr_index, b: +r.bench_index}));
+  const ext = d3.extent(data.flatMap(d => [d.p, d.b, 100]));
+  const y = d3.scaleLinear([ext[0] - 2, ext[1] + 2], [h - 22, 8]).nice();
+  const ml = textW(svg, y.ticks(5).map(v => num(v, 0))) + 12;
+  const endL = NARROW(w) ? [num(data.at(-1).p, 0), num(data.at(-1).b, 0)] : ['Port ' + num(data.at(-1).p, 1), 'VWCE ' + num(data.at(-1).b, 1)];
+  const mr = textW(svg, endL) + 10;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 8 - mr]);
+  yAxis(svg, y, ml, w - 8 - mr, v => num(v, 0)); timeAxis(svg, x, h - 22, w - mr);
+  svg.append('line').attr('x1', ml).attr('x2', w - 8 - mr).attr('y1', y(100)).attr('y2', y(100)).attr('stroke', '#3a4757').attr('stroke-dasharray', '3 3');
+  line(svg, data, x, y, 'b', C.mu, 1.4); line(svg, data, x, y, 'p', C.bl, 1.8);
+  let yp = y(data.at(-1).p), yb = y(data.at(-1).b);
+  if (Math.abs(yp - yb) < 12) { const m = (yp + yb) / 2, s = yp < yb ? -1 : 1; yp = m + s * 6; yb = m - s * 6; }
+  svg.append('text').attr('x', w - 4 - mr).attr('y', yp + 4).text(endL[0]).style('fill', C.bl);
+  svg.append('text').attr('x', w - 4 - mr).attr('y', yb + 4).text(endL[1]).style('fill', C.mu);
+  hover(svg, x, data, ml, w - 8 - mr, 8, h - 22, (ev, d, dots) => {
+    dots.append('circle').attr('cx', x(d.d)).attr('cy', y(d.p)).attr('r', 3.5).attr('fill', C.bl);
+    showTip(ev, fDayY(d.d), [['Portafoglio', pctS(d.p / 100 - 1), C.bl], ['VWCE', pctS(d.b / 100 - 1), C.mu]]);
+  });
+}
+function drawUnder(el, data, keys, hIn, fmtX = fDay, labels) {
+  const {svg, w, h} = mkSvg(el, hIn);
+  const lo = d3.min(data, d => d3.min(keys, k => d[k]));
+  const y = d3.scaleLinear([Math.min(-0.02, lo * 1.1), 0], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(4).map(v => pct(v, 0))) + 12;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, v => pct(v, 0), 4); timeAxis(svg, x, h - 22, w, fmtX);
+  keys.forEach(k => {
+    if (keys.length === 1) svg.append('path').datum(data).attr('fill', 'rgba(239,68,68,.18)').attr('d', d3.area().x(d => x(d.d)).y0(y(0)).y1(d => y(d[k])));
+    line(svg, data, x, y, k, keys.length === 1 ? C.dn : PC[k.replace('dd_', '')], keys.length === 1 ? 1.4 : (k === 'dd_attuale' ? 1.8 : 1.3), k === 'dd_vwce' ? '4 3' : null);
+  });
+  hover(svg, x, data, ml, w - 10, 6, h - 22, (ev, d) => showTip(ev, fDayY(d.d), keys.map(k => [labels ? labels[k] : 'Drawdown', pct(d[k], 1), keys.length > 1 ? PC[k.replace('dd_', '')] : null])));
+}
+function drawAlloc(el, lg, rows) {
+  const data = rows.filter(r => r.group === 'Asset class').map(r => ({l: r.label, v: +r.value}));
+  const col = {ETF: C.bl, STOCK: C.ac, ETC: C.vi, CASH: C.dim};
+  const names = {ETF: 'ETF', STOCK: 'Azioni', ETC: 'ETC', CASH: 'Liquidità'};
+  const tot = d3.sum(data, d => d.v);
+  const {svg, w, h} = mkSvg(el, 200);
+  const R = Math.min(h, w) / 2 - 6;
+  const g = svg.append('g').attr('transform', `translate(${w / 2},${h / 2})`);
+  g.selectAll('path').data(d3.pie().value(d => d.v).sort(null).padAngle(.015)(data)).join('path').attr('d', d3.arc().innerRadius(R * .7).outerRadius(R)).attr('fill', d => col[d.data.l] || C.dim)
+    .on('pointermove', (ev, d) => showTip(ev, names[d.data.l] || d.data.l, [['Valore', eur(d.data.v)], ['Quota', pct(d.data.v / tot)]])).on('pointerleave', hideTip);
+  g.append('text').attr('text-anchor', 'middle').attr('y', 2).text(eur0(tot)).style('fill', '#fff').style('font-size', '15px');
+  g.append('text').attr('text-anchor', 'middle').attr('y', 17).text('NAV').style('font-size', '9px');
+  lg.replaceChildren(...data.map(d => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = col[d.l] || C.dim; s.append(i, `${names[d.l] || d.l} ${pct(d.v / tot, 0)}`); return s; }));
+}
+function drawRiskW(el, rows) {
+  const data = rows.map(r => ({t: short(r.ticker), n: r.name, w: +r.weight, r: +r.risk_share})).sort((a, b) => b.r - a.r).slice(0, 12);
+  const {svg, w, h} = mkSvg(el, 280);
+  const ml = textW(svg, data.map(d => d.t)) + 10;
+  const y = d3.scaleBand(data.map(d => d.t), [4, h - 20]).padding(.25);
+  const x = d3.scaleLinear([0, d3.max(data, d => Math.max(d.w, d.r)) * 1.08], [ml, w - 10]).nice();
+  clean(svg.append('g').attr('class', 'gridl').attr('transform', `translate(0,${h - 20})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor(w / 100))).tickSize(-(h - 24)).tickFormat(v => pct(v, 0))));
+  const bh = y.bandwidth() / 2;
+  const row = svg.append('g').selectAll('g').data(data).join('g').attr('transform', d => `translate(0,${y(d.t)})`);
+  row.append('text').attr('x', ml - 6).attr('y', y.bandwidth() / 2 + 4).attr('text-anchor', 'end').text(d => d.t).style('fill', '#e3e9ef');
+  row.append('rect').attr('x', ml).attr('height', bh - 1).attr('width', d => x(d.w) - ml).attr('rx', 1.5).attr('fill', C.bl);
+  row.append('rect').attr('x', ml).attr('y', bh).attr('height', bh - 1).attr('width', d => x(d.r) - ml).attr('rx', 1.5).attr('fill', C.ac);
+  row.append('rect').attr('width', w).attr('height', y.bandwidth()).attr('fill', 'transparent')
+    .on('pointermove', (ev, d) => showTip(ev, d.n, [['Peso', pct(d.w), C.bl], ['Rischio', pct(d.r), C.ac], ['Rischio / peso', num(d.r / d.w, 1) + '×']])).on('pointerleave', hideTip);
+}
+
+// ---------- Rischio charts
+function drawRoll(el, rows, keys, fmt, hIn, ref) {
+  const {svg, w, h} = mkSvg(el, hIn);
+  const data = rows.map(r => ({d: new Date(r.day), ...Object.fromEntries(keys.map(([k]) => [k, +r[k]]))}));
+  const ext = d3.extent(data.flatMap(d => keys.map(([k]) => d[k])).concat(ref ?? []));
+  const y = d3.scaleLinear([Math.min(0, ext[0]), ext[1] * 1.05], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(5).map(fmt)) + 12;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, fmt); timeAxis(svg, x, h - 22, w, fMonY);
+  if (ref != null) svg.append('line').attr('x1', ml).attr('x2', w - 10).attr('y1', y(ref)).attr('y2', y(ref)).attr('stroke', '#3a4757').attr('stroke-dasharray', '3 3');
+  keys.forEach(([k, col, , wd]) => line(svg, data, x, y, k, col, wd || 1.5));
+  hover(svg, x, data, ml, w - 10, 6, h - 22, (ev, d, dots) => { keys.forEach(([k, col]) => dots.append('circle').attr('cx', x(d.d)).attr('cy', y(d[k])).attr('r', 3).attr('fill', col)); showTip(ev, fDayY(d.d), keys.map(([k, col, n]) => [n, fmt(d[k]), col])); });
+}
+function drawDist(el, rows) {
+  const {svg, w, h} = mkSvg(el, fit(220, .42));
+  const data = rows.map(r => ({lo: +r.lo, hi: +r.hi, n: +r.n, nm: +r.normal}));
+  const x = d3.scaleLinear([data[0].lo, data.at(-1).hi], [34, w - 10]);
+  const y = d3.scaleLinear([0, d3.max(data, d => Math.max(d.n, d.nm)) * 1.08], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(4).map(v => String(v))) + 12;
+  x.range([ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, v => String(v), 4);
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 80))).tickFormat(v => pct(v, 0)).tickSizeOuter(0)));
+  svg.append('g').selectAll('rect').data(data).join('rect').attr('x', d => x(d.lo) + .5).attr('width', d => Math.max(1, x(d.hi) - x(d.lo) - 1)).attr('y', d => y(d.n)).attr('height', d => y(0) - y(d.n)).attr('fill', d => d.lo < 0 && d.n > d.nm * 1.5 && d.lo < -0.02 ? C.dn : C.bl).attr('opacity', .8)
+    .on('pointermove', (ev, d) => showTip(ev, `${pct(d.lo, 1)} … ${pct(d.hi, 1)}`, [['Giorni osservati', String(d.n), C.bl], ['Attesi (normale)', num(d.nm, 1), C.ac]])).on('pointerleave', hideTip);
+  svg.append('path').datum(data).attr('fill', 'none').attr('stroke', C.ac).attr('stroke-width', 1.6).attr('d', d3.line().x(d => x((d.lo + d.hi) / 2)).y(d => y(d.nm)));
+}
+function drawCorr(el, rows) {
+  const tick = [...new Set(rows.map(r => r.a))];
+  const M = new Map(rows.map(r => [r.a + '|' + r.b, +r.rho]));
+  const n = tick.length, w0 = Math.max(280, el.clientWidth || 600);
+  const tmp = mkSvg(el, 10); const ml = textW(tmp.svg, tick.map(short)) + 10;
+  const cs = Math.max(18, Math.min(44, (w0 - ml - 10) / n));
+  const rot = cs < 40, H = cs * n + (rot ? 46 : 26);
+  const {svg, w} = mkSvg(el, H);
+  const x0 = ml + Math.max(0, (w - ml - cs * n) / 2);
+  const pos = d3.interpolateRgb('#121a24', '#60a5fa'), neg = d3.interpolateRgb('#121a24', '#f5a623');
+  const color = v => v >= 0 ? pos(Math.pow(v, 1.3)) : neg(-v);
+  tick.forEach((a, i) => {
+    svg.append('text').attr('x', x0 - 6).attr('y', 2 + i * cs + cs / 2 + 4).attr('text-anchor', 'end').text(short(a));
+    tick.forEach((b, j) => {
+      const v = M.get(a + '|' + b);
+      svg.append('rect').attr('x', x0 + j * cs + 1).attr('y', 2 + i * cs + 1).attr('width', cs - 2).attr('height', cs - 2).attr('rx', 2).attr('fill', color(v))
+        .on('pointermove', ev => showTip(ev, `${short(a)} × ${short(b)}`, [['ρ', num(v, 2)]])).on('pointerleave', hideTip);
+      if (cs >= 34 && i !== j) svg.append('text').attr('x', x0 + j * cs + cs / 2).attr('y', 2 + i * cs + cs / 2 + 4).attr('text-anchor', 'middle').text(num(v, 2)).style('fill', v > .65 ? '#0a0d12' : '#cfd8e1').style('font-size', '9px').style('pointer-events', 'none');
+    });
+  });
+  tick.forEach((b, j) => {
+    const t = svg.append('text').text(short(b));
+    if (rot) t.attr('transform', `translate(${x0 + j * cs + cs / 2 - 3},${2 + n * cs + 8}) rotate(40)`).style('font-size', '9px');
+    else t.attr('x', x0 + j * cs + cs / 2).attr('y', 2 + n * cs + 14).attr('text-anchor', 'middle');
+  });
+}
+
+// ---------- Ottimizzazione charts
+function drawFrontier(el, rows) {
+  const {svg, w, h} = mkSvg(el, fit(320, .62));
+  const fr = rows.filter(r => r.kind === 'frontiera').map(r => ({v: +r.vol, m: +r.mu})).sort((a, b) => a.v - b.v);
+  const ins = rows.filter(r => r.kind === 'strumento').map(r => ({v: +r.vol, m: +r.mu, l: r.label}));
+  const pts = rows.filter(r => r.kind === 'portafoglio').map(r => ({v: +r.vol, m: +r.mu, l: r.label}));
+  const all = [...fr, ...ins, ...pts];
+  const y = d3.scaleLinear([d3.min(all, d => d.m) - .004, d3.max(all, d => d.m) + .004], [h - 30, 8]).nice();
+  const ml = textW(svg, y.ticks(5).map(v => pct(v, 1))) + 12;
+  const x = d3.scaleLinear([0, d3.max(all, d => d.v) * 1.05], [ml, w - 12]).nice();
+  yAxis(svg, y, ml, w - 12, v => pct(v, 1));
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 30})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 80))).tickFormat(v => pct(v, 0)).tickSizeOuter(0)));
+  svg.append('text').attr('x', w - 12).attr('y', h - 2).attr('text-anchor', 'end').text('σ annua →');
+  svg.append('text').attr('x', ml + 4).attr('y', 14).text('E[r] ↑');
+  svg.append('path').datum(fr).attr('fill', 'none').attr('stroke', '#e3e9ef').attr('stroke-width', 1.5).attr('stroke-dasharray', '1 0').attr('opacity', .7).attr('d', d3.line().x(d => x(d.v)).y(d => y(d.m)));
+  svg.append('g').selectAll('circle').data(ins).join('circle').attr('cx', d => x(d.v)).attr('cy', d => y(d.m)).attr('r', 3).attr('fill', '#3a4757').attr('stroke', '#5b6878')
+    .on('pointermove', (ev, d) => showTip(ev, d.l === 'SAT' ? 'Azioni singole (blocco)' : d.l, [['E[r]', pct(d.m, 1)], ['σ', pct(d.v, 1)]])).on('pointerleave', hideTip);
+  const placed = [];
+  pts.forEach(d => {
+    const id = Object.keys(PN).find(k => PN[k] === d.l) || 'attuale';
+    svg.append('circle').attr('cx', x(d.v)).attr('cy', y(d.m)).attr('r', 6).attr('fill', PC[id]).attr('stroke', '#0a0d12').attr('stroke-width', 1.5)
+      .on('pointermove', ev => showTip(ev, d.l, [['E[r]', pct(d.m, 2)], ['σ', pct(d.v, 1)], ['Sharpe', num((d.m - .02) / d.v, 2)]])).on('pointerleave', hideTip);
+    let ly = y(d.m) - 9; while (placed.some(p => Math.abs(p - ly) < 12)) ly -= 12; placed.push(ly);
+    const lw = textW(svg, [d.l]);
+    svg.append('text').attr('x', Math.min(x(d.v) + 8, w - 12 - lw)).attr('y', ly).text(d.l).style('fill', PC[id]).style('font-size', NARROW(w) ? '9.5px' : '10.5px');
+  });
+}
+const CLS_COL = {'Azioni globali':'#60a5fa','Azioni tech':'#3b82f6','Azioni Europa':'#93c5fd','Azioni dividendo':'#2dd4bf','Azioni fattoriali':'#14b8a6','Azioni emergenti':'#a78bfa','Azioni singole':'#f5a623','Argento (ETC)':'#fbbf24','Obbligazioni':'#94a3b8','Liquidità':'#475569','Oro':'#facc15','Materie prime':'#d97706','Immobiliare':'#f472b6'};
+function drawWeights(el, lg, rows) {
+  const ids = ['attuale', 'difensivo', 'ottimale', 'oro', 'crescita'];
+  const classes = Object.keys(CLS_COL).filter(c => rows.some(r => r.cls === c && (+r.target > 0 || +r.current > 0)));
+  const agg = ids.map(id => { const o = {id}; classes.forEach(c => o[c] = d3.sum(rows.filter(r => r.portfolio === id && r.cls === c), r => id === 'attuale' ? +r.current : +r.target)); return o; });
+  const {svg, w, h} = mkSvg(el, 270);
+  const ml = textW(svg, ids.map(i => PN[i])) + 10;
+  const y = d3.scaleBand(ids, [4, h - 22]).padding(.3);
+  const x = d3.scaleLinear([0, 1], [ml, w - 10]);
+  clean(svg.append('g').attr('class', 'gridl').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).ticks(5).tickSize(-(h - 26)).tickFormat(v => pct(v, 0))));
+  const stack = d3.stack().keys(classes)(agg);
+  stack.forEach(s => svg.append('g').selectAll('rect').data(s).join('rect').attr('x', d => x(d[0])).attr('width', d => Math.max(0, x(d[1]) - x(d[0]) - .5)).attr('y', d => y(d.data.id)).attr('height', y.bandwidth()).attr('fill', CLS_COL[s.key])
+    .on('pointermove', (ev, d) => showTip(ev, `${PN[d.data.id]} · ${s.key}`, [['Peso', pct(d[1] - d[0], 1), CLS_COL[s.key]]])).on('pointerleave', hideTip));
+  ids.forEach(id => svg.append('text').attr('x', ml - 6).attr('y', y(id) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end').text(PN[id]).style('fill', PC[id]));
+  lg.replaceChildren(...classes.map(c => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = CLS_COL[c]; i.style.height = '8px'; i.style.width = '8px'; s.append(i, c); return s; }));
+}
+function drawBT(el, rows) {
+  const keys = ['vwce', 'crescita', 'difensivo', 'ottimale', 'oro', 'attuale'];
+  const {svg, w, h} = mkSvg(el, fit(260, .27));
+  const data = rows.map(r => ({d: new Date(r.day), ...Object.fromEntries(keys.map(k => [k, +r[k]]))}));
+  const showEnd = !NARROW(w);
+  const y = d3.scaleLog([d3.min(data, d => d3.min(keys, k => d[k])) * .97, d3.max(data, d => d3.max(keys, k => d[k])) * 1.03], [h - 22, 6]);
+  const tv = [80, 100, 125, 150, 200, 250, 300].filter(v => v >= y.domain()[0] && v <= y.domain()[1]);
+  const ml = textW(svg, tv.map(v => num(v, 0))) + 12;
+  const endL = keys.map(k => `${PN[k]} ${num(data.at(-1)[k], 0)}`);
+  const mr = showEnd ? textW(svg, endL) + 10 : 0;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 8 - mr]);
+  const g = svg.append('g').attr('class', 'gridl').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).tickValues(tv).tickSize(-(w - 8 - mr - ml)).tickFormat(v => num(v, 0))); clean(g); g.selectAll('text').attr('x', -6);
+  timeAxis(svg, x, h - 22, w - mr, fMonY);
+  keys.forEach(k => line(svg, data, x, y, k, PC[k], k === 'attuale' || k === 'oro' ? 1.9 : 1.3, k === 'vwce' ? '4 3' : null));
+  const ends = keys.map(k => ({k, y: y(data.at(-1)[k])})).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 12) ends[i].y = ends[i - 1].y + 12;
+  if (showEnd) ends.forEach(e => svg.append('text').attr('x', w - 4 - mr).attr('y', e.y + 4).text(`${PN[e.k]} ${num(data.at(-1)[e.k], 0)}`).style('fill', PC[e.k]));
+  hover(svg, x, data, ml, w - 8 - mr, 6, h - 22, (ev, d, dots) => { keys.forEach(k => dots.append('circle').attr('cx', x(d.d)).attr('cy', y(d[k])).attr('r', 2.8).attr('fill', PC[k])); showTip(ev, fDayY(d.d), [...keys].reverse().map(k => [PN[k], num(d[k], 1), PC[k]])); });
+}
+
+// ---------- Monte Carlo
+const mcCache = new Map();
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function monteCarlo(v0, pac, mu, sigma, years) {
+  const key = [v0, pac, mu, sigma, years].join('|');
+  if (mcCache.has(key)) return mcCache.get(key);
+  const N = 2000, T = years * 12, r = rng(42), dr = (mu - sigma * sigma / 2) / 12, vs = sigma / Math.sqrt(12);
+  const P = new Float64Array(N * (T + 1)); const mdd = new Float64Array(N);
+  for (let i = 0; i < N; i++) {
+    let v = v0, peak = 1, idx = 1; P[i * (T + 1)] = v; let dd = 0;
+    for (let t = 1; t <= T; t++) {
+      const u1 = r() || 1e-9, u2 = r(); const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      const g = Math.exp(dr + vs * z); idx *= g; v = v * g + pac; P[i * (T + 1) + t] = v;
+      if (idx > peak) peak = idx; dd = Math.min(dd, idx / peak - 1);
+    }
+    mdd[i] = dd;
+  }
+  const out = [], col = new Float64Array(N);
+  for (let t = 0; t <= T; t++) {
+    for (let i = 0; i < N; i++) col[i] = P[i * (T + 1) + t];
+    const s = Float64Array.from(col).sort(); const q = p => s[Math.min(N - 1, Math.floor(p * N))];
+    const inv = v0 + pac * t; let loss = 0; for (let i = 0; i < N; i++) if (col[i] < inv) loss++;
+    out.push({d: t, t, p5: q(.05), p25: q(.25), p50: q(.5), p75: q(.75), p95: q(.95), inv, ploss: loss / N});
+  }
+  const ms = Float64Array.from(mdd).sort();
+  out.dd = {median: ms[Math.floor(N / 2)], p5: ms[Math.floor(N * .05)], p20: Array.from(mdd).filter(v => v < -0.2).length / N, p30: Array.from(mdd).filter(v => v < -0.3).length / N};
+  mcCache.set(key, out); if (mcCache.size > 30) mcCache.delete(mcCache.keys().next().value);
+  return out;
+}
+function drawMC(el, tb, ddEl, R, cur, prop, shift, pac) {
+  const A = monteCarlo(+R.equity, pac, +cur.mu + shift, +cur.vol, 10);
+  const B = monteCarlo(+R.equity, pac, +prop.mu + shift, +prop.vol, 10);
+  const pc = PC[prop.id] || C.ac;
+  const {svg, w, h} = mkSvg(el, fit(300, .3));
+  const y = d3.scaleLinear([0, Math.max(d3.max(B, d => d.p95), d3.max(A, d => d.p75)) * 1.03], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(5).map(eurK)) + 12;
+  const x = d3.scaleLinear([0, 120], [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, eurK);
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).tickValues(d3.range(0, 121, w < 520 ? 24 : 12)).tickFormat(v => v === 0 ? 'oggi' : `${v / 12}a`).tickSizeOuter(0)));
+  const ar = (a, b) => d3.area().x(d => x(d.t)).y0(d => y(d[a])).y1(d => y(d[b]));
+  const c0 = d3.color(pc); c0.opacity = .12; const c1 = d3.color(pc); c1.opacity = .25;
+  svg.append('path').datum(B).attr('fill', c0.formatRgb()).attr('d', ar('p5', 'p95'));
+  svg.append('path').datum(B).attr('fill', c1.formatRgb()).attr('d', ar('p25', 'p75'));
+  const ln = (data, k, col, wd, dsh) => { const p = svg.append('path').datum(data).attr('fill', 'none').attr('stroke', col).attr('stroke-width', wd).attr('d', d3.line().x(d => x(d.t)).y(d => y(d[k]))); if (dsh) p.attr('stroke-dasharray', dsh); };
+  ln(A, 'inv', 'rgba(255,255,255,.5)', 1.2, '2 3'); ln(A, 'p5', C.dim, 1.3, '4 3'); ln(A, 'p50', C.mu, 1.6); ln(B, 'p50', pc, 2);
+  hover(svg, x, B, ml, w - 10, 6, h - 22, (ev, d, dots) => {
+    const a = A[d.t];
+    dots.append('circle').attr('cx', x(d.t)).attr('cy', y(d.p50)).attr('r', 3.5).attr('fill', pc);
+    dots.append('circle').attr('cx', x(d.t)).attr('cy', y(a.p50)).attr('r', 3).attr('fill', C.mu);
+    showTip(ev, d.t === 0 ? 'oggi' : `${Math.floor(d.t / 12)}a ${d.t % 12 ? (d.t % 12) + 'm' : ''}`, [[`${prop.name} P50`, eur0(d.p50), pc], [`${prop.name} P5–P95`, `${eurK(d.p5)}–${eurK(d.p95)}`], ['Attuale P50', eur0(a.p50), C.mu], ['Attuale P5', eur0(a.p5)], ['Versato', eur0(d.inv)]]);
+  });
+  root.querySelector('#mc-h1').textContent = `${prop.name} P50`; root.querySelector('#mc-h2').textContent = `${prop.name} P5`;
+  root.querySelector('#lg-mc-prop').style.background = pc; root.querySelector('#lg-mc-name').textContent = prop.name;
+  tb.replaceChildren(...[1, 3, 5, 10].map(yr => {
+    const a = A[yr * 12], b = B[yr * 12]; const tr = document.createElement('tr');
+    const td = (t, cls) => { const c = document.createElement('td'); c.textContent = t; if (cls) c.className = cls; tr.append(c); return c; };
+    td(`${yr} ${yr === 1 ? 'anno' : 'anni'}`, 'l'); td(eurK(a.inv)); td(eurK(a.p50)); td(eurK(a.p5), 'hx'); td(pct(a.ploss, 0), 'hn');
+    const c1_ = td(eurK(b.p50)); c1_.style.color = pc; td(eurK(b.p5), 'hx'); td(pct(b.ploss, 0), 'hn'); return tr;
+  }));
+  const cell = (l, v, cls) => { const d = document.createElement('div'); const a = document.createElement('div'); a.className = 'l'; a.textContent = l; const b = document.createElement('div'); b.className = 'v'; b.textContent = v; if (cls) b.classList.add(cls); d.append(a, b); return d; };
+  ddEl.replaceChildren(cell('Max DD mediano · att.', pct(A.dd.median, 0)), cell(`Max DD mediano · ${prop.name.toLowerCase()}`, pct(B.dd.median, 0), B.dd.median > A.dd.median ? 'pos' : null),
+    cell('P(DD > 20%) · att.', pct(A.dd.p20, 0)), cell(`P(DD > 20%) · ${prop.name.toLowerCase()}`, pct(B.dd.p20, 0), B.dd.p20 < A.dd.p20 ? 'pos' : null),
+    cell('P(DD > 30%) · att.', pct(A.dd.p30, 0)), cell(`P(DD > 30%) · ${prop.name.toLowerCase()}`, pct(B.dd.p30, 0), B.dd.p30 < A.dd.p30 ? 'pos' : null));
+}
+
+// ---------- Operatività charts
+function drawFlows(el, rows) {
+  const keys = [['deposits', C.ac, 'Depositi'], ['bought', C.bl, 'Acquisti'], ['sold', C.vi, 'Vendite']];
+  const data = rows.map(r => ({m: r.month, ...Object.fromEntries(keys.map(([k]) => [k, +r[k]]))}));
+  const {svg, w, h} = mkSvg(el, fit(230, .42));
+  const y = d3.scaleLinear([0, d3.max(data, d => Math.max(...keys.map(([k]) => d[k]))) * 1.06], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(5).map(eur0)) + 12;
+  const x = d3.scaleBand(data.map(d => d.m), [ml, w - 10]).padding(.25);
+  const xi = d3.scaleBand(keys.map(k => k[0]), [0, x.bandwidth()]).padding(.12);
+  yAxis(svg, y, ml, w - 10, eur0);
+  const fm = m => { const [yy, mm] = m.split('-'); return `${MESI[+mm - 1]} ${yy.slice(2)}`; };
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).tickFormat(fm).tickSizeOuter(0)));
+  const g = svg.append('g').selectAll('g').data(data).join('g').attr('transform', d => `translate(${x(d.m)},0)`);
+  keys.forEach(([k, col]) => g.append('rect').attr('x', xi(k)).attr('width', Math.min(28, xi.bandwidth())).attr('y', d => y(d[k])).attr('height', d => y(0) - y(d[k])).attr('rx', 2).attr('fill', col));
+  g.append('rect').attr('width', x.bandwidth()).attr('y', 6).attr('height', h - 28).attr('fill', 'transparent').on('pointermove', (ev, d) => showTip(ev, fm(d.m), keys.map(([k, col, n]) => [n, eur(d[k]), col]))).on('pointerleave', hideTip);
+}
+function drawReal(el, rows) {
+  const s = rows.map(r => ({t: short(r.ticker), n: r.name, v: +r.pnl, k: +r.trades, wn: +r.wins})).sort((a, b) => b.v - a.v);
+  const data = s.length > 12 ? [...s.slice(0, 6), ...s.slice(-6)] : s;
+  const {svg, w, h} = mkSvg(el, 280);
+  const ml = textW(svg, data.map(d => d.t)) + 10;
+  const x = d3.scaleLinear(d3.extent(data.map(d => d.v).concat(0)), [ml, w - 64]).nice();
+  const y = d3.scaleBand(data.map(d => d.t), [4, h - 20]).padding(.25);
+  clean(svg.append('g').attr('class', 'gridl').attr('transform', `translate(0,${h - 20})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor(w / 100))).tickSize(-(h - 24)).tickFormat(eur0)));
+  svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 2).attr('y2', h - 20).attr('stroke', '#3a4757');
+  const r = svg.append('g').selectAll('g').data(data).join('g').attr('transform', d => `translate(0,${y(d.t)})`);
+  r.append('text').attr('x', ml - 6).attr('y', y.bandwidth() / 2 + 4).attr('text-anchor', 'end').text(d => d.t).style('fill', '#e3e9ef');
+  r.append('rect').attr('x', d => Math.min(x(0), x(d.v))).attr('width', d => Math.max(1, Math.abs(x(d.v) - x(0)))).attr('height', y.bandwidth()).attr('rx', 1.5).attr('fill', d => d.v >= 0 ? C.up : C.dn).attr('opacity', .85);
+  r.append('text').attr('x', d => d.v >= 0 ? x(d.v) + 5 : x(0) + 5).attr('y', y.bandwidth() / 2 + 4).text(d => eurS(d.v)).style('fill', d => d.v >= 0 ? C.up : C.dn);
+  r.append('rect').attr('width', w).attr('height', y.bandwidth()).attr('fill', 'transparent').on('pointermove', (ev, d) => showTip(ev, d.n, [['Realizzato', eurS(d.v)], ['Trade', String(d.k)], ['In profitto', `${d.wn}/${d.k}`]])).on('pointerleave', hideTip);
+}
+
+// ---------- tables
+function sortable(tbl, state, render) {
+  tbl.querySelectorAll('th.s').forEach(th => th.addEventListener('click', () => {
+    const k = th.dataset.field; if (state.k === k) state.d *= -1; else { state.k = k; state.d = ['ticker', 'name', 'category', 'cls'].includes(k) ? 1 : -1; }
+    tbl.querySelectorAll('th').forEach(t => t.removeAttribute('aria-sort')); th.setAttribute('aria-sort', state.d > 0 ? 'ascending' : 'descending'); render();
+  }));
+}
+const sorter = (state) => (a, b) => { const x = a[state.k], y = b[state.k]; return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y))) * state.d; };
+const mkRow = () => { const tr = document.createElement('tr'); const td = (t, cls) => { const c = document.createElement('td'); c.textContent = t; if (cls) c.className = cls; tr.append(c); return c; }; return [tr, td]; };
+const barCell = (td, frac, txt, col) => { const c = td(''); const b = document.createElement('span'); b.className = 'bar'; b.style.width = Math.max(1, Math.round(36 * frac)) + 'px'; if (col) b.style.background = col; c.append(b, txt); return c; };
+
+const posTbl = root.querySelector('#tbl-pos'), posState = {k: 'value', d: -1}; let posRows = [];
+function renderPos() {
+  const mw = d3.max(posRows, r => r.weight) || 1, mr = d3.max(posRows, r => r.risk_share) || 1;
+  posTbl.tBodies[0].replaceChildren(...[...posRows].sort(sorter(posState)).map(r => {
+    const [tr, td] = mkRow();
+    td(r.ticker, 'tk'); td(r.name, 'l nm'); td(r.category === 'STOCK' ? 'Azione' : r.category, 'l hn'); td(eur(r.value));
+    barCell(td, r.weight / mw, pct(r.weight)); sgn(td(eurS(r.pnl), 'hx'), r.pnl); sgn(td(pctS(r.ret_pct)), r.ret_pct);
+    td(pct(r.vol_ann, 0), 'hn'); td(num(r.beta, 2), 'hn'); barCell(td, r.risk_share / mr, pct(r.risk_share), C.ac); sgn(td(pctS(r.ret_1y, 0), 'hn'), r.ret_1y);
+    return tr;
+  }));
+}
+sortable(posTbl, posState, renderPos);
+
+const scrTbl = root.querySelector('#tbl-scr'), scrState = {k: 'd_sharpe', d: -1}; let scrRows = [];
+function renderScr() {
+  scrTbl.tBodies[0].replaceChildren(...[...scrRows].sort(sorter(scrState)).map(r => {
+    const [tr, td] = mkRow();
+    td(r.ticker, 'tk'); td(r.name, 'l nm' + (r.held ? ' held' : ''));
+    td(r.cls, 'l hn'); td(num(r.corr_port, 2)); td(num(r.beta_vwce, 2), 'hn'); td(pct(r.mu, 1), 'hx'); td(pct(r.vol, 1), 'hn'); sgn(td(pctS(r.cagr_5y, 1), 'hn'), r.cagr_5y); td(pct(r.maxdd_5y, 0), 'hn');
+    sgn(td(pp(r.d_vol, 2)), r.d_vol, true); sgn(td(pp(r.d_mu, 2), 'hx'), r.d_mu); sgn(td(numS(r.d_sharpe, 3)), r.d_sharpe); sgn(td(pp(r.d_maxdd, 1)), r.d_maxdd);
+    return tr;
+  }));
+}
+sortable(scrTbl, scrState, renderScr);
+
+function renderCmp(rows, sel) {
+  const tb = root.querySelector('#tbl-cmp').tBodies[0];
+  const base = rows.find(r => r.id === 'attuale');
+  tb.replaceChildren(...rows.map(r => {
+    const [tr, td] = mkRow(); tr.dataset.key = r.id; if (r.id === sel) tr.className = 'sel'; tr.style.cursor = r.id === 'attuale' || r.id === 'vwce' ? 'default' : 'pointer';
+    const n = td('', 'l'); const i = document.createElement('i'); i.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;background:${PC[r.id]}`; n.append(i, r.name);
+    const cmp = (v, k, inv, f) => { const c = td(f(v)); if (r.id !== 'attuale' && base && v != null) sgn(c, v - base[k], inv); return c; };
+    cmp(+r.mu, 'mu', false, v => pct(v, 2)); cmp(+r.vol, 'vol', true, v => pct(v, 1)); cmp(+r.sharpe, 'sharpe', false, v => num(v, 2)).classList.add('hx');
+    cmp(+r.cvar95w, 'cvar95w', true, v => pct(v, 1)).classList.add('hn'); cmp(+r.corr_vwce, 'corr_vwce', true, v => num(v, 2));
+    td(r.avg_corr == null ? '—' : num(+r.avg_corr, 2), 'hn'); td(num(+r.eff_n, 1), 'hn');
+    td(pct(+r.cagr_bt, 1), 'hx'); cmp(+r.maxdd_bt, 'maxdd_bt', false, v => pct(v, 1)); td(num(+r.calmar, 2), 'hn'); td(pct(+r.oos_cagr, 1), 'hx'); cmp(+r.oos_maxdd, 'oos_maxdd', false, v => pct(v, 1));
+    return tr;
+  }));
+}
+root.querySelector('#tbl-cmp').addEventListener('click', ev => { const tr = ev.target.closest('tr[data-key]'); if (tr && !['attuale', 'vwce'].includes(tr.dataset.key)) dash.setParams({prop: tr.dataset.key}); });
+
+function renderStress(rows) {
+  root.querySelector('#tbl-stress').tBodies[0].replaceChildren(...rows.map(r => {
+    const [tr, td] = mkRow(); tr.dataset.key = r.id;
+    const n = td('', 'l'); const i = document.createElement('i'); i.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;background:${PC[r.id]}`; n.append(i, r.name);
+    ['s2022', 's2024', 's2025', 'maxdd_bt'].forEach(k => sgn(td(pctS(+r[k], 1)), +r[k])); return tr;
+  }));
+}
+function renderTrades(rows, prop, pname) {
+  const sel = rows.filter(r => r.portfolio === prop).map(r => ({...r, current: +r.current, target: +r.target, current_eur: +r.current_eur, target_eur: +r.target_eur, delta_eur: +r.delta_eur})).sort((a, b) => b.delta_eur - a.delta_eur);
+  root.querySelector('#trade-title').textContent = pname;
+  root.querySelector('#tbl-trades').tBodies[0].replaceChildren(...sel.map(r => {
+    const [tr, td] = mkRow(); tr.dataset.key = `${encodeURIComponent(r.portfolio)},${encodeURIComponent(r.ticker)}`;
+    td(r.ticker, 'tk'); td(r.name, 'l nm'); td(r.cls, 'l hn'); td(pct(r.current, 1), 'hx'); td(pct(r.target, 1)); td(eur(r.current_eur), 'hn'); td(eur(r.target_eur));
+    const a = Math.abs(r.delta_eur) < 1 ? 'tieni' : r.delta_eur > 0 ? (r.current === 0 ? 'compra' : 'aumenta') : (r.target === 0 ? 'vendi' : 'riduci');
+    const c = td(eurS(r.delta_eur), 'act act-' + a); sgn(c, r.delta_eur);
+    return tr;
+  }));
+  const buys = d3.sum(sel, r => Math.max(0, r.delta_eur)), sells = d3.sum(sel, r => Math.max(0, -r.delta_eur));
+  const nb = sel.filter(r => r.delta_eur >= 1).length, ns = sel.filter(r => r.delta_eur <= -1).length;
+  root.querySelector('#trade-note').textContent = `${nb} acquisti per ${eur0(buys)} e ${ns} vendite/riduzioni per ${eur0(sells)}: turnover ${pct(sells / d3.sum(sel, r => r.current_eur), 0)} del portafoglio. Con importi così piccoli conviene arrivarci gradualmente indirizzando i nuovi versamenti (PAC) verso gli strumenti da aumentare, invece di vendere subito.`;
+}
+
+// ---------- insights
+function insights(el, R, pos, corr, ex, ports) {
+  const items = [], add = (c, k, t) => items.push([c, k, t]);
+  add(ex >= 0 ? 'g' : 'b', 'Performance', `TWR ${pctS(R.twr)} contro ${pctS(R.bench_ret)} di VWCE dal ${fDayY(new Date(R.start))}: alfa di ${pp(ex, 1)}. XIRR ${pct(R.xirr)} annuo sul capitale effettivamente versato, P/L ${eurS(R.pnl)}.`);
+  const hot = [...pos].filter(p => p.category !== 'ETF').sort((a, b) => b.risk_share - a.risk_share).slice(0, 3);
+  add('b', 'Rischio', `${hot.map(p => short(p.ticker)).join(', ')}: ${pct(d3.sum(hot, p => p.weight))} del capitale, ${pct(d3.sum(hot, p => p.risk_share))} della varianza. β ${num(R.beta_exante, 2)} e σ ${pct(R.vol_exante)} contro ${pct(R.bench_vol)} di VWCE.`);
+  const heldW = new Map(pos.map(p => [p.ticker, p.weight]));
+  const grp = new Set(corr.filter(c => c.a < c.b && c.rho >= 0.97 && /\.DE$/.test(c.a) && /\.DE$/.test(c.b)).flatMap(c => [c.a, c.b]));
+  if (grp.size >= 3) add('w', 'Ridondanza', `${[...grp].map(short).join(', ')} hanno ρ ≥ 0,97: ${pct(d3.sum([...grp], t => heldW.get(t) || 0))} del portafoglio in un'unica esposizione. Correlazione media tra le posizioni: ${num(ports.find(p => p.id === 'attuale')?.avg_corr ?? 0, 2)}.`);
+  const a = ports.find(p => p.id === 'attuale'), o = ports.find(p => p.id === 'ottimale'), d = ports.find(p => p.id === 'difensivo');
+  if (a && o) add('g', 'Ottimizzazione', `L'allocazione Ottimale porta E[r] da ${pct(a.mu, 1)} a ${pct(o.mu, 1)}, σ da ${pct(a.vol, 1)} a ${pct(o.vol, 1)}, max drawdown 5a da ${pct(a.maxdd_bt, 1)} a ${pct(o.maxdd_bt, 1)} e ρ con VWCE da ${num(a.corr_vwce, 2)} a ${num(o.corr_vwce, 2)}. La Difensiva dimezza quasi il drawdown (${pct(d.maxdd_bt, 1)}) a parità di E[r].`);
+  if (a && o) add('w', 'Attenzione', `Nel backtest il portafoglio attuale rende di più (CAGR ${pct(a.cagr_bt, 1)} vs ${pct(o.cagr_bt, 1)}) perché contiene titoli scelti dopo forti rialzi: è senno di poi. Anche fuori campione (2024–oggi) l'attuale ha reso di più, ma con drawdown ${pct(a.oos_maxdd, 1)} contro ${pct(o.oos_maxdd, 1)}.`);
+  add(R.profit_factor >= 1 ? 'g' : 'b', 'Trading', `${R.trades_closed} trade chiusi, win rate ${pct(R.win_rate, 0)}, profit factor ${num(R.profit_factor, 2)}, realizzato ${eurS(R.realized_total)}.`);
+  el.replaceChildren(...items.map(([c, k, t]) => { const li = document.createElement('li'); if (c) li.className = c; const a_ = document.createElement('span'); a_.className = 'k'; a_.textContent = k; const b = document.createElement('span'); b.textContent = t; li.append(a_, b); return li; }));
+}
+
+// ---------- Fondamentali
+const FC = {MSFT: '#60a5fa', GOOGL: '#2dd4bf', STLA: '#f472b6'};
+const FN = {MSFT: 'Microsoft', GOOGL: 'Alphabet', STLA: 'Stellantis'};
+function dots(n) { const s = document.createElement('span'); s.style.letterSpacing = '2px'; for (let i = 1; i <= 5; i++) { const d = document.createElement('i'); d.style.cssText = `display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:2px;background:${i <= n ? '#f5a623' : '#2c3846'}`; s.append(d); } return s; }
+function nameCell(td, r) { const c = td('', 'l'); const i = document.createElement('i'); i.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;background:${FC[r.company]}`; c.append(i, r.name); return c; }
+function renderFund(S, PF) {
+  const sc = root.querySelector('#tbl-f-score').tBodies[0];
+  sc.replaceChildren(...S.map(r => { const [tr, td] = mkRow(); tr.dataset.key = r.company; nameCell(td, r);
+    ['score_quality', 'score_growth', 'score_value', 'score_balance', 'score_fit'].forEach(k => { const c = td(String(r[k])); c.style.color = 'transparent'; c.style.position = 'relative'; const d = dots(+r[k]); d.style.cssText += ';position:absolute;right:8px;top:50%;transform:translateY(-50%)'; c.append(d); });
+    td(pct(+r.suggested_w, 0), 'hx'); return tr; }));
+  const vt = root.querySelector('#tbl-f-val').tBodies[0];
+  const f = (v, fn) => v == null ? '—' : fn(+v);
+  vt.replaceChildren(...S.map(r => { const [tr, td] = mkRow(); tr.dataset.key = r.company; nameCell(td, r);
+    td(`${num(+r.price, 2)} ${r.currency === 'EUR' ? '€' : '$'}`); td(nf({maximumFractionDigits: 1}).format(+r.mcap), 'hn'); td(f(r.pe, v => num(v, 1) + '×'), 'hx'); td(f(r.pe_adj, v => num(v, 1) + '×'));
+    td(f(r.ev_ebit, v => num(v, 1) + '×'), 'hn'); sgn(td(f(r.fcf_yield, v => pct(v, 1))), +r.fcf_yield); td(f(r.sh_yield, v => pct(v, 1)), 'hn'); td(f(r.implied_g, v => pct(v, 1)));
+    sgn(td(pctS(+r.r_pessimista, 1), 'hx'), +r.r_pessimista); const b = td(pctS(+r.r_base, 1)); b.style.color = '#fff'; sgn(td(pctS(+r.r_ottimista, 1), 'hx'), +r.r_ottimista); return tr; }));
+  const ft = root.querySelector('#tbl-f-fit').tBodies[0];
+  ft.replaceChildren(...S.map(r => { const [tr, td] = mkRow(); tr.dataset.key = r.company; nameCell(td, r);
+    td(pct(+r.vol, 0)); td(num(+r.beta_vwce, 2), 'hx'); td(num(+r.corr_target, 2)); sgn(td(pp(+r.d_vol_5, 2)), +r.d_vol_5, true); sgn(td(numS(+r.d_rho_5, 3)), +r.d_rho_5, true); sgn(td(pp(+r.d_dd_5, 1)), +r.d_dd_5); td(pct(+r.maxdd_10y, 0), 'hn'); return tr; }));
+  root.querySelector('#f-cards').replaceChildren(...S.map(r => {
+    const card = document.createElement('div'); card.className = 'qx-pac'; card.style.boxShadow = `inset 0 2px 0 ${FC[r.company]}`; card.id = 'f-' + r.company;
+    const h3 = document.createElement('h3'); h3.append(`${r.name} · ${r.ticker}`); const pill = document.createElement('span'); pill.className = 'qx-pill ' + (+r.suggested_w >= .03 ? 'on' : 'off'); pill.textContent = `max ${pct(+r.suggested_w, 0)} del portafoglio`; h3.append(pill);
+    const mk = (lab, txt) => { const d = document.createElement('div'); d.style.fontSize = '12px'; d.style.lineHeight = '1.5'; const b = document.createElement('div'); b.className = 'sub'; b.textContent = lab; const t = document.createElement('div'); t.textContent = txt; d.append(b, t); return d; };
+    card.append(h3, mk('Settore · vantaggio competitivo', `${r.sector}. ${r.moat}`), mk('Giudizio', r.verdict), mk('Rischi', r.risks), mk('Catalizzatori', r.cats)); return card; }));
+  const o = PF.find(p => p.id === 'oro');
+  const m = S.find(r => r.company === 'MSFT'), g = S.find(r => r.company === 'GOOGL'), s_ = S.find(r => r.company === 'STLA');
+  if (m && g && s_) root.querySelector('#f-take').textContent = `Microsoft e Alphabet sono aziende di altissima qualità (ROCE medio ${pct(+m.roic_avg, 0)} e ${pct(+g.roic_avg, 0)}, ricavi +${pct(+m.rev_cagr_5y, 0)} e +${pct(+g.rev_cagr_5y, 0)} l'anno) ma prezzate per una crescita degli utili di circa ${pct(+m.implied_g, 0)} annuo per 10 anni: nello scenario base rendono ${pct(+m.r_base, 1)} e ${pct(+g.r_base, 1)} l'anno${o ? `, contro ${pct(+o.mu, 1)} atteso dall'obiettivo Ottimale + Oro` : ''}. Stellantis è l'opposto: fondamentali in perdita e prezzo a ${num(+s_.pb, 2)}× il patrimonio, con scenari da ${pctS(+s_.r_pessimista, 0)} a ${pctS(+s_.r_ottimista, 0)} l'anno.`;
+}
+function drawFRet(el, S, PF) {
+  const {svg, w, h} = mkSvg(el, 200);
+  const o = PF.find(p => p.id === 'oro');
+  const ml = textW(svg, S.map(r => r.name)) + 12;
+  const vals = S.flatMap(r => [+r.r_pessimista, +r.r_ottimista]).concat(o ? +o.mu : 0, 0);
+  const x = d3.scaleLinear([Math.min(...vals) - .01, Math.max(...vals) + .02], [ml, w - 14]).nice();
+  const y = d3.scaleBand(S.map(r => r.company), [6, h - 24]).padding(.35);
+  clean(svg.append('g').attr('class', 'gridl').attr('transform', `translate(0,${h - 24})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 90))).tickSize(-(h - 30)).tickFormat(v => pct(v, 0))));
+  svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 4).attr('y2', h - 24).attr('stroke', '#3a4757');
+  if (o) { svg.append('line').attr('x1', x(+o.mu)).attr('x2', x(+o.mu)).attr('y1', 2).attr('y2', h - 24).attr('stroke', '#facc15').attr('stroke-dasharray', '4 3'); svg.append('text').attr('x', x(+o.mu) + 4).attr('y', 12).text(`obiettivo ${pct(+o.mu, 1)}`).style('fill', '#facc15'); }
+  const g = svg.append('g').selectAll('g').data(S).join('g').attr('transform', r => `translate(0,${y(r.company) + y.bandwidth() / 2})`);
+  g.append('text').attr('x', ml - 8).attr('y', 4).attr('text-anchor', 'end').text(r => r.name).style('fill', '#e3e9ef');
+  g.append('line').attr('x1', r => x(+r.r_pessimista)).attr('x2', r => x(+r.r_ottimista)).attr('stroke', r => FC[r.company]).attr('stroke-width', 6).attr('stroke-linecap', 'round').attr('opacity', .45);
+  g.append('circle').attr('cx', r => x(+r.r_base)).attr('r', 6).attr('fill', r => FC[r.company]).attr('stroke', '#0a0d12').attr('stroke-width', 1.5);
+  g.append('text').attr('x', r => x(+r.r_base)).attr('y', -10).attr('text-anchor', 'middle').text(r => pctS(+r.r_base, 1)).style('fill', '#fff');
+  g.append('rect').attr('x', ml).attr('y', -y.bandwidth()).attr('width', w - ml).attr('height', y.bandwidth() * 2).attr('fill', 'transparent')
+    .on('pointermove', (ev, r) => showTip(ev, r.name, [['Pessimista', pctS(+r.r_pessimista, 1)], ['Base', pctS(+r.r_base, 1), FC[r.company]], ['Ottimista', pctS(+r.r_ottimista, 1)]])).on('pointerleave', hideTip);
+}
+function drawFPx(el, lg, rows) {
+  const {svg, w, h} = mkSvg(el, fit(220, .42));
+  const cos = ['MSFT', 'GOOGL', 'STLA'];
+  const by = new Map(); rows.forEach(r => { const k = r.month; if (!by.has(k)) by.set(k, {d: new Date(k + '-01')}); by.get(k)[r.company] = +r.index; });
+  const data = [...by.values()].sort((a, b) => a.d - b.d);
+  const all = data.flatMap(d => cos.map(c => d[c])).filter(v => v > 0);
+  const y = d3.scaleLog([d3.min(all) * .9, d3.max(all) * 1.1], [h - 22, 6]);
+  const tv = [10, 25, 50, 100, 200, 400, 800, 1600].filter(v => v >= y.domain()[0] && v <= y.domain()[1]);
+  const ml = textW(svg, tv.map(v => String(v))) + 12;
+  const endL = cos.map(c => `${FN[c]} ${num(data.at(-1)[c], 0)}`); const mr = NARROW(w) ? 0 : textW(svg, endL) + 10;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 8 - mr]);
+  const ga = svg.append('g').attr('class', 'gridl').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).tickValues(tv).tickSize(-(w - 8 - mr - ml)).tickFormat(v => String(v))); clean(ga); ga.selectAll('text').attr('x', -6);
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 90))).tickFormat(d => String(d.getUTCFullYear())).tickSizeOuter(0)));
+  svg.append('line').attr('x1', ml).attr('x2', w - 8 - mr).attr('y1', y(100)).attr('y2', y(100)).attr('stroke', '#3a4757').attr('stroke-dasharray', '3 3');
+  cos.forEach(c => line(svg, data, x, y, c, FC[c], 1.7));
+  if (mr) { const ends = cos.map(c => ({c, y: y(data.at(-1)[c])})).sort((a, b) => a.y - b.y); for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 12) ends[i].y = ends[i - 1].y + 12; ends.forEach(e => svg.append('text').attr('x', w - 4 - mr).attr('y', e.y + 4).text(`${FN[e.c]} ${num(data.at(-1)[e.c], 0)}`).style('fill', FC[e.c])); }
+  hover(svg, x, data, ml, w - 8 - mr, 6, h - 22, (ev, d) => showTip(ev, `${MESI[d.d.getUTCMonth()]} ${d.d.getUTCFullYear()}`, cos.map(c => [FN[c], num(d[c], 0), FC[c]])));
+  lg.replaceChildren(...cos.map(c => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = FC[c]; s.append(i, FN[c]); return s; }));
+}
+function drawFMulti(el, rows, barK, lineK, barFmt, lineFmt, barLab, lineLab) {
+  const cos = ['MSFT', 'GOOGL', 'STLA'];
+  const {svg, w, h} = mkSvg(el, w0 => NARROW(w0) ? 3 * 170 : Math.round(Math.max(210, Math.min(300, w0 * .22))));
+  const narrow = NARROW(w), gap = 18;
+  const pw = narrow ? w : (w - gap * 2) / 3, ph = narrow ? (h - 2 * gap) / 3 : h;
+  cos.forEach((c, i) => {
+    const ox = narrow ? 0 : i * (pw + gap), oy = narrow ? i * (ph + gap) : 0;
+    const g = svg.append('g').attr('transform', `translate(${ox},${oy})`);
+    const data = rows.filter(r => r.company === c && r[barK] != null).map(r => ({y: +r.year, b: +r[barK], l: r[lineK] == null ? null : +r[lineK]}));
+    const ml = 36, mr = 36, top = 18, bot = ph - 20;
+    g.append('text').attr('x', 0).attr('y', 11).text(FN[c] + (c === 'STLA' ? ' (mld €)' : ' (mld $)')).style('fill', FC[c]).style('font-size', '11px');
+    const x = d3.scaleBand(data.map(d => d.y), [ml, pw - mr]).padding(.25);
+    const yb = d3.scaleLinear(d3.extent(data.map(d => d.b).concat(0)), [bot, top]).nice();
+    const lv = data.map(d => d.l).filter(v => v != null);
+    const yl = d3.scaleLinear(d3.extent(lv.concat(0)), [bot, top]).nice();
+    const ga = g.append('g').attr('class', 'gridl').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(yb).ticks(4).tickSize(-(pw - ml - mr)).tickFormat(v => nf({maximumFractionDigits: 0}).format(v))); clean(ga); ga.selectAll('text').attr('x', -4);
+    const gr = g.append('g').attr('class', 'ax').attr('transform', `translate(${pw - mr},0)`).call(d3.axisRight(yl).ticks(4).tickFormat(lineFmt).tickSize(2)); clean(gr); gr.select('path').remove();
+    const every = Math.ceil(data.length / Math.max(3, Math.floor((pw - ml - mr) / 34)));
+    clean(g.append('g').attr('class', 'ax').attr('transform', `translate(0,${bot})`).call(d3.axisBottom(x).tickValues(data.map(d => d.y).filter((_, j) => j % every === 0 || j === data.length - 1)).tickFormat(v => `'${String(v).slice(2)}`).tickSizeOuter(0)));
+    g.append('g').selectAll('rect').data(data).join('rect').attr('x', d => x(d.y)).attr('width', x.bandwidth()).attr('y', d => Math.min(yb(0), yb(d.b))).attr('height', d => Math.abs(yb(d.b) - yb(0))).attr('rx', 1.5).attr('fill', d => d.b < 0 ? C.dn : FC[c]).attr('opacity', .55);
+    g.append('path').datum(data.filter(d => d.l != null)).attr('fill', 'none').attr('stroke', '#e3e9ef').attr('stroke-width', 1.6).attr('d', d3.line().x(d => x(d.y) + x.bandwidth() / 2).y(d => yl(d.l)));
+    g.append('g').selectAll('circle').data(data.filter(d => d.l != null)).join('circle').attr('cx', d => x(d.y) + x.bandwidth() / 2).attr('cy', d => yl(d.l)).attr('r', 2.2).attr('fill', '#e3e9ef');
+    g.append('g').selectAll('rect').data(data).join('rect').attr('x', d => x(d.y)).attr('width', x.bandwidth()).attr('y', top).attr('height', bot - top).attr('fill', 'transparent')
+      .on('pointermove', (ev, d) => showTip(ev, `${FN[c]} · ${c === 'MSFT' ? 'FY' : ''}${d.y}`, [[barLab, barFmt(d.b), FC[c]], [lineLab, d.l == null ? '—' : lineFmt(d.l)]])).on('pointerleave', hideTip);
+  });
+}
+function drawFRoic(el, lg, rows) {
+  const cos = ['MSFT', 'GOOGL', 'STLA'];
+  const {svg, w, h} = mkSvg(el, fit(220, .42));
+  const data = rows.filter(r => r.roic != null).map(r => ({c: r.company, d: new Date(`${r.year}-06-30`), v: +r.roic}));
+  const y = d3.scaleLinear(d3.extent(data.map(d => d.v).concat(0)), [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(5).map(v => pct(v, 0))) + 12;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, v => pct(v, 0)); timeAxis(svg, x, h - 22, w, d => String(d.getUTCFullYear()));
+  svg.append('line').attr('x1', ml).attr('x2', w - 10).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', '#3a4757');
+  cos.forEach(c => { const dd = data.filter(d => d.c === c); svg.append('path').datum(dd).attr('fill', 'none').attr('stroke', FC[c]).attr('stroke-width', 1.8).attr('d', d3.line().x(d => x(d.d)).y(d => y(d.v)));
+    svg.append('g').selectAll('circle').data(dd).join('circle').attr('cx', d => x(d.d)).attr('cy', d => y(d.v)).attr('r', 3).attr('fill', FC[c]).on('pointermove', (ev, d) => showTip(ev, `${FN[c]} · ${d.d.getUTCFullYear()}`, [['ROCE', pct(d.v, 1), FC[c]]])).on('pointerleave', hideTip); });
+  lg.replaceChildren(...cos.map(c => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = FC[c]; s.append(i, FN[c]); return s; }));
+}
+
+// ---------- Analisi: ricariche PAC A
+const DC = {base: '#8593a3', dipA20: '#f5a623', dipC20: '#2dd4bf', dipA15: '#a78bfa'};
+const DN = {base: 'Base', dipA20: 'PAC A −20%', dipC20: 'PAC C −20%', dipA15: 'PAC A −15%'};
+function renderDip(rows) {
+  root.querySelector('#tbl-dip').tBodies[0].replaceChildren(...rows.map(r => { const [tr, td] = mkRow(); tr.dataset.key = r.id;
+    const n = td('', 'l'); const i = document.createElement('i'); i.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;background:${DC[r.id] || '#5b6878'}`; n.append(i, r.name);
+    td(String(r.buys)); td(eur0(+r.invested), 'hx'); td(eur0(+r.value), 'hn'); td(eur0(+r.liquidity), 'hn'); const t = td(eur0(+r.total)); t.style.color = '#fff';
+    sgn(td(eurS(+r.delta_total, 0)), +r.delta_total); td(pct(+r.tech, 0), 'hx'); return tr; }));
+  const g = k => rows.find(r => r.id === k);
+  const b = g('base'), a = g('dipA20'), n = g('notiming'), c = g('dipC20');
+  if (b && a && n && c) root.querySelector('#dip-take').textContent = `Con ricariche da 200 € al PAC A nei mesi di crollo del Nasdaq (−20%) il patrimonio finale è ${eurS(+a.delta_total, 0)} rispetto alla strategia base. Di questi, ${eur0(+n.delta_total)} vengono solo dall'aver investito più liquidità, ${eur0(+c.total - +n.total)} dal comprare nei ribassi invece che a rate fisse e ${eur0(+a.total - +c.total)} dall'aver scelto il PAC A (più volatile, rimbalza di più). Il peso del tech a fine periodo resta ${pct(+a.tech, 0)}. Ricariche nei mesi: ${a.buy_months}.`;
+}
+function drawDip(el, lg, rows) {
+  const keys = ['base', 'dipC20', 'dipA20', 'dipA15'];
+  const {svg, w, h} = mkSvg(el, fit(300, .3));
+  const data = rows.map(r => ({d: new Date(r.month + '-01'), dd: +r.nasdaq_dd, buy: !!r.buyA, ...Object.fromEntries(keys.map(k => [k, +r[k]]))}));
+  const h1 = Math.round((h - 22) * .68), top2 = h1 + 14;
+  const y = d3.scaleLinear([0, d3.max(data, d => d3.max(keys, k => d[k])) * 1.05], [h1, 6]).nice();
+  const y2 = d3.scaleLinear([Math.min(-.4, d3.min(data, d => d.dd) * 1.1), 0], [h - 22, top2]);
+  const ml = Math.max(textW(svg, y.ticks(4).map(eurK)), textW(svg, ['−40%'])) + 12;
+  const x = d3.scaleUtc(d3.extent(data, d => d.d), [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, eurK, 4);
+  const g2 = svg.append('g').attr('class', 'gridl').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y2).tickValues([-.4, -.2, 0].filter(v => v >= y2.domain()[0])).tickSize(-(w - 10 - ml)).tickFormat(v => pct(v, 0))); clean(g2); g2.selectAll('text').attr('x', -6);
+  timeAxis(svg, x, h - 22, w, fMonY);
+  svg.append('line').attr('x1', ml).attr('x2', w - 10).attr('y1', y2(-.2)).attr('y2', y2(-.2)).attr('stroke', C.dn).attr('stroke-dasharray', '3 3').attr('opacity', .7);
+  svg.append('path').datum(data).attr('fill', 'rgba(239,68,68,.22)').attr('d', d3.area().x(d => x(d.d)).y0(y2(0)).y1(d => y2(d.dd)));
+  keys.forEach(k => line(svg, data, x, y, k, DC[k], k === 'dipA20' ? 2 : 1.4, k === 'base' ? '4 3' : null));
+  svg.append('g').selectAll('circle').data(data.filter(d => d.buy)).join('circle').attr('cx', d => x(d.d)).attr('cy', d => y(d.dipA20)).attr('r', 3.5).attr('fill', C.ac).attr('stroke', '#0a0d12');
+  hover(svg, x, data, ml, w - 10, 6, h - 22, (ev, d) => showTip(ev, `${MESI[d.d.getUTCMonth()]} ${d.d.getUTCFullYear()}${d.buy ? ' · ricarica' : ''}`, [...keys.map(k => [DN[k], eur0(d[k]), DC[k]]), ['Nasdaq dal massimo', pct(d.dd, 0)]]));
+  lg.replaceChildren(...keys.map(k => { const s_ = document.createElement('span'); const i = document.createElement('i'); i.style.background = DC[k]; s_.append(i, DN[k]); return s_; }), (() => { const s_ = document.createElement('span'); const i = document.createElement('i'); i.style.background = 'rgba(239,68,68,.5)'; s_.append(i, 'Nasdaq 100 dal massimo'); return s_; })());
+}
+root.querySelectorAll('details.qx-an').forEach(d => d.addEventListener('toggle', () => { if (d.open) draw(); }));
+root.querySelector('#an-open').addEventListener('click', () => { root.querySelectorAll('details.qx-an').forEach(d => d.open = true); draw(); });
+root.querySelector('#an-close').addEventListener('click', () => root.querySelectorAll('details.qx-an').forEach(d => d.open = false));
+
+// ---------- Piano PAC
+const PLAN_COL = {A: '#8593a3', B: '#60a5fa', C: '#f5a623'};
+const PRESETS = [['cons', 'Consigliato', {pacA: 0, pacB: 0, pacC: 240, liq: 80}], ['mix', 'B + C', {pacA: 0, pacB: 80, pacC: 160, liq: 80}], ['tutti', 'Tutti attivi', {pacA: 80, pacB: 80, pacC: 80, liq: 80}], ['solo', 'Solo investimenti', {pacA: 0, pacB: 0, pacC: 240, liq: 0}]];
+function pacSim(model, cov, pacs, amt, deploy, liqCfg, months = 48) {
+  const U = model.map(m => m.ticker), ix = new Map(U.map((u, i) => [u, i])), n = U.length;
+  const S = Array.from({length: n}, () => new Float64Array(n));
+  cov.forEach(c => { const i = ix.get(c.a), j = ix.get(c.b); if (i != null && j != null) S[i][j] = +c.cov; });
+  const mu = model.map(m => +m.mu), tgt = model.map(m => +m.target_w);
+  const plan = {A: new Float64Array(n), B: new Float64Array(n), C: new Float64Array(n)};
+  pacs.forEach(p => { const i = ix.get(p.ticker); if (i != null) plan[p.plan][i] = +p.weight; });
+  const h = Float64Array.from(model.map(m => +m.current_eur));
+  const iCash = ix.get('XEON.DE'), iV = ix.get('VWCE.DE'), iSat = ix.get('SAT');
+  const tech = ['SXRV.DE', 'QDVE.DE', 'XAIX.DE'].map(t => ix.get(t)).filter(i => i != null);
+  let L = 0; const rn = liqCfg ? (+liqCfg.rate_gross) * (1 - (+liqCfg.tax)) / 12 : 0;
+  const iGold = ix.get('4GLD.DE');
+  L = liqCfg ? +liqCfg.start : 0;
+  if (iCash != null) { const c = h[iCash]; h[iCash] = 0; if (deploy) { for (let i = 0; i < n; i++) h[i] += c * plan.C[i]; } else L += c; }
+  const stats = (h) => {
+    const tot = h.reduce((a, b) => a + b, 0), w = Array.from(h, x => x / tot);
+    const Sw = w.map((_, i) => { let s = 0; for (let j = 0; j < n; j++) s += S[i][j] * w[j]; return s; });
+    const vol = Math.sqrt(w.reduce((a, x, i) => a + x * Sw[i], 0));
+    return {tot, er: w.reduce((a, x, i) => a + x * mu[i], 0), vol, rho: Sw[iV] / (vol * Math.sqrt(S[iV][iV])),
+      dist: w.reduce((a, x, i) => a + Math.abs(x - tgt[i]), 0) / 2, tech: tech.reduce((a, i) => a + w[i], 0), sat: iSat != null ? w[iSat] : 0, gold: iGold != null ? w[iGold] : 0};
+  };
+  const out = []; let paid = 0;
+  for (let m = 0; m <= months; m++) {
+    if (m > 0) { for (const k of ['A', 'B', 'C']) { const a = amt[k] || 0; for (let i = 0; i < n; i++) h[i] += a * plan[k][i]; paid += a; } L = L * (1 + rn) + (amt.L || 0); }
+    const st_ = stats(h);
+    out.push({d: m, m, paid, liq: L, liqShare: L / (L + st_.tot), ...st_});
+  }
+  out.target = stats(Float64Array.from(tgt));
+  return out;
+}
+function drawPacDist(el, sim) {
+  const {svg, w, h} = mkSvg(el, fit(220, .42));
+  const y = d3.scaleLinear([0, Math.max(.5, d3.max(sim, d => d.dist)) * 1.05], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(5).map(v => pct(v, 0))) + 12;
+  const x = d3.scaleLinear([0, sim.length - 1], [ml, w - 10]);
+  yAxis(svg, y, ml, w - 10, v => pct(v, 0));
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).tickValues(d3.range(0, sim.length, w < 520 ? 12 : 6)).tickFormat(v => v === 0 ? 'oggi' : `${v}m`).tickSizeOuter(0)));
+  svg.append('line').attr('x1', ml).attr('x2', w - 10).attr('y1', y(.1)).attr('y2', y(.1)).attr('stroke', C.up).attr('stroke-dasharray', '4 3').attr('opacity', .7);
+  svg.append('text').attr('x', w - 12).attr('y', y(.1) - 5).attr('text-anchor', 'end').text('obiettivo 10%').style('fill', C.up);
+  svg.append('path').datum(sim).attr('fill', 'rgba(245,166,35,.10)').attr('d', d3.area().x(d => x(d.m)).y0(y(0)).y1(d => y(d.dist)));
+  line(svg, sim, x, y, 'dist', C.ac, 2);
+  const hit = sim.find(d => d.dist <= .1);
+  if (hit) { svg.append('circle').attr('cx', x(hit.m)).attr('cy', y(hit.dist)).attr('r', 4).attr('fill', C.up); }
+  hover(svg, x, sim, ml, w - 10, 6, h - 22, (ev, d, dots) => { dots.append('circle').attr('cx', x(d.m)).attr('cy', y(d.dist)).attr('r', 3.5).attr('fill', C.ac); showTip(ev, d.m === 0 ? 'oggi' : `mese ${d.m}`, [['Distanza', pct(d.dist, 1), C.ac], ['Versato', eur0(d.paid)], ['Capitale', eur0(d.tot)]]); });
+}
+function drawPacMetrics(el, sim) {
+  const T = sim.target;
+  const panels = [['er', 'E[r]', v => pct(v, 1), C.ac], ['vol', 'σ', v => pct(v, 0), C.bl], ['rho', 'ρ VWCE', v => num(v, 2), C.vi]];
+  const {svg, w, h} = mkSvg(el, fit(240, .45));
+  const ph = (h - 22) / 3;
+  const ml = 48;
+  const x = d3.scaleLinear([0, sim.length - 1], [ml, w - 10]);
+  panels.forEach(([k, lab, fmt, col], pi) => {
+    const top = pi * ph + 4, bot = top + ph - 10;
+    const ext = d3.extent(sim.map(d => d[k]).concat(T[k]));
+    const pad = (ext[1] - ext[0]) * .15 || .01;
+    const y = d3.scaleLinear([ext[0] - pad, ext[1] + pad], [bot, top + 4]);
+    svg.append('text').attr('x', 0).attr('y', top + 12).text(lab).style('fill', col);
+    svg.append('text').attr('x', 0).attr('y', top + 25).text(fmt(sim.at(-1)[k])).style('fill', '#e3e9ef');
+    svg.append('line').attr('x1', ml).attr('x2', w - 10).attr('y1', bot).attr('y2', bot).attr('stroke', '#18202a');
+    svg.append('line').attr('x1', ml).attr('x2', w - 10).attr('y1', y(T[k])).attr('y2', y(T[k])).attr('stroke', col).attr('stroke-dasharray', '3 3').attr('opacity', .55);
+    svg.append('path').datum(sim).attr('fill', 'none').attr('stroke', col).attr('stroke-width', 1.8).attr('d', d3.line().x(d => x(d.m)).y(d => y(d[k])));
+  });
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).tickValues(d3.range(0, sim.length, w < 520 ? 12 : 6)).tickFormat(v => v === 0 ? 'oggi' : `${v}m`).tickSizeOuter(0)));
+  hover(svg, x, sim, ml, w - 10, 4, h - 22, (ev, d) => showTip(ev, d.m === 0 ? 'oggi' : `mese ${d.m}`, [...panels.map(([k, lab, fmt, col]) => [lab, fmt(d[k]), col]), ['Obiettivo σ / ρ', `${pct(T.vol, 0)} / ${num(T.rho, 2)}`]]));
+}
+function drawPacWealth(el, sim) {
+  const {svg, w, h} = mkSvg(el, fit(220, .26));
+  const y = d3.scaleLinear([0, d3.max(sim, d => d.tot + d.liq) * 1.05], [h - 22, 6]).nice();
+  const ml = textW(svg, y.ticks(5).map(eurK)) + 12;
+  const y2 = d3.scaleLinear([0, Math.max(.4, d3.max(sim, d => d.liqShare) * 1.2)], [h - 22, 6]).nice();
+  const mr = textW(svg, y2.ticks(4).map(v => pct(v, 0))) + 10;
+  const x = d3.scaleLinear([0, sim.length - 1], [ml, w - mr]);
+  yAxis(svg, y, ml, w - mr, eurK);
+  const ga = svg.append('g').attr('class', 'ax').attr('transform', `translate(${w - mr},0)`).call(d3.axisRight(y2).ticks(4).tickFormat(v => pct(v, 0)).tickSize(3)); clean(ga); ga.select('path').remove();
+  clean(svg.append('g').attr('class', 'ax').attr('transform', `translate(0,${h - 22})`).call(d3.axisBottom(x).tickValues(d3.range(0, sim.length, w < 520 ? 12 : 6)).tickFormat(v => v === 0 ? 'oggi' : `${v}m`).tickSizeOuter(0)));
+  svg.append('path').datum(sim).attr('fill', 'rgba(245,166,35,.55)').attr('d', d3.area().x(d => x(d.m)).y0(y(0)).y1(d => y(d.tot)));
+  svg.append('path').datum(sim).attr('fill', 'rgba(45,212,191,.55)').attr('d', d3.area().x(d => x(d.m)).y0(d => y(d.tot)).y1(d => y(d.tot + d.liq)));
+  svg.append('path').datum(sim).attr('fill', 'none').attr('stroke', '#e3e9ef').attr('stroke-width', 1.4).attr('stroke-dasharray', '4 3').attr('d', d3.line().x(d => x(d.m)).y(d => y2(d.liqShare)));
+  hover(svg, x, sim, ml, w - mr, 6, h - 22, (ev, d) => showTip(ev, d.m === 0 ? 'oggi' : `mese ${d.m}`, [['Investito', eur0(d.tot), '#f5a623'], ['Conto liquidità', eur0(d.liq), '#2dd4bf'], ['Quota liquidità', pct(d.liqShare, 0)], ['Totale', eur0(d.tot + d.liq)]]));
+}
+function renderPacCards(el, pacs, amt, liqCfg, startLiq) {
+  const plans = ['A', 'B', 'C'];
+  el.replaceChildren(...plans.map(k => {
+    const rows = pacs.filter(p => p.plan === k).sort((a, b) => b.weight - a.weight);
+    if (!rows.length) return document.createComment('');
+    const card = document.createElement('div'); card.className = 'qx-pac' + (k === 'C' ? ' new' : ''); card.id = 'pac-' + k;
+    const h3 = document.createElement('h3'); h3.append(rows[0].plan_name);
+    const pill = document.createElement('span');
+    const a = amt[k] || 0;
+    pill.className = 'qx-pill ' + (a > 0 ? (k === 'C' ? 'new' : 'on') : 'off');
+    pill.textContent = a > 0 ? 'attivo' : 'in pausa'; h3.append(pill);
+    const val = d3.sum(rows, r => +r.value), inOpt = d3.sum(rows.filter(r => +r.target_w > 0), r => +r.weight);
+    const sub = document.createElement('div'); sub.className = 'sub';
+    sub.textContent = `Valore ${eur(val)} · ${k === 'C' ? `${rows.length} ETF, 100% nell'obiettivo` : `${pct(inOpt, 0)} dei pesi nell'obiettivo`}`;
+    const t = document.createElement('table'); t.dataset.source = 'pacs'; t.dataset.rowKey = 'plan,ticker';
+    t.innerHTML = '<thead><tr><th class="l" data-field="ticker">Ticker</th><th class="l" data-field="name">Strumento</th><th data-field="weight">Peso</th>' + '<th data-field="value" class="hx">Valore</th>' + '</tr></thead>';
+    const tb = document.createElement('tbody');
+    rows.forEach(r => { const [tr, td] = mkRow(); tr.dataset.key = `${encodeURIComponent(r.plan)},${encodeURIComponent(r.ticker)}`; td(r.ticker, 'tk'); td(r.name, 'l nm' + (+r.target_w > 0 ? ' in' : '')); td(pct(+r.weight, 0)); td(eur(+r.value), 'hx'); tb.append(tr); });
+    t.append(tb);
+    const lab = document.createElement('label'); lab.className = 'rng';
+    const inp = document.createElement('input'); inp.type = 'range'; inp.min = 0; inp.max = 600; inp.step = 10; inp.value = a; inp.setAttribute('aria-label', `Versamento mensile ${rows[0].plan_name}`);
+    const out = document.createElement('output'); out.textContent = eur0(a) + '/mese';
+    inp.addEventListener('input', () => { out.textContent = eur0(+inp.value) + '/mese'; });
+    inp.addEventListener('change', () => dash.setParams({['pac' + k]: +inp.value}));
+    lab.append('Mensile', inp, out);
+    card.append(h3, sub, t, lab); return card;
+  }), liqCfg ? (() => {
+    const card = document.createElement('div'); card.className = 'qx-pac'; card.id = 'pac-L'; card.style.boxShadow = 'inset 0 2px 0 #2dd4bf';
+    const h3 = document.createElement('h3'); h3.append('Conto liquidità');
+    const inv = (amt.A || 0) + (amt.B || 0) + (amt.C || 0), a = amt.L || 0;
+    const pill = document.createElement('span'); pill.className = 'qx-pill ' + (a > 0 && a < inv ? 'on' : a >= inv && a > 0 ? 'off' : '');
+    pill.textContent = a === 0 ? 'nessun versamento' : a < inv ? `${pct(a / (a + inv), 0)} del risparmio` : 'supera gli investimenti'; h3.append(pill);
+    const sub = document.createElement('div'); sub.className = 'sub';
+    sub.textContent = `Saldo iniziale ${eur(startLiq)} · interessi ${pct(+liqCfg.rate_gross, 1)} lordi, ${pct(+liqCfg.rate_gross * (1 - +liqCfg.tax), 2)} netti`;
+    const note = document.createElement('div'); note.className = 'qx-cn'; note.style.margin = '0';
+    note.textContent = 'Riserva separata dagli investimenti: non entra nel calcolo di rischio e distanza. Su XTB resta come liquidità libera remunerata; in alternativa un ETF monetario (XEON) o un conto deposito.';
+    const lab = document.createElement('label'); lab.className = 'rng';
+    const inp = document.createElement('input'); inp.type = 'range'; inp.min = 0; inp.max = 400; inp.step = 10; inp.value = a; inp.setAttribute('aria-label', 'Versamento mensile conto liquidità');
+    const out = document.createElement('output'); out.textContent = eur0(a) + '/mese';
+    inp.addEventListener('input', () => { out.textContent = eur0(+inp.value) + '/mese'; });
+    inp.addEventListener('change', () => dash.setParams({liq: +inp.value}));
+    lab.append('Mensile', inp, out); card.append(h3, sub, note, lab); return card;
+  })() : document.createComment(''));
+}
+function renderPacTable(sim) {
+  root.querySelector('#tbl-pac').tBodies[0].replaceChildren(...[0, 3, 6, 12, 24, 36, 48].filter(m => m < sim.length).map(m => {
+    const d = sim[m]; const [tr, td] = mkRow();
+    td(m === 0 ? 'Oggi' : `${m}`, 'l'); td(eur0(d.paid), 'hx'); td(eur0(d.tot)); td(eur0(d.liq)); td(pct(d.liqShare, 0), 'hx');
+    const c = td(pct(d.dist, 0)); if (d.dist <= .1) c.classList.add('pos');
+    td(pct(d.er, 2), 'hn'); td(pct(d.vol, 1)); td(num(d.rho, 2)); td(pct(d.gold, 0), 'hn'); td(pct(d.tech, 0), 'hn'); return tr;
+  }));
+}
+function renderPacSteps(el, pacs, sim, amt) {
+  const C_ = pacs.filter(p => p.plan === 'C').sort((a, b) => b.weight - a.weight);
+  const hit = sim.find(d => d.dist <= .1);
+  const items = [
+    ['Tieni in pausa il ', 'PAC A', ` (World + Nasdaq): nessuno dei suoi ETF è nell'obiettivo e il 40% è Nasdaq, la fonte principale di correlazione.`],
+    ['Tieni in pausa o riduci il ', 'PAC B', `: solo VGWD, VDIV e IS3S (34% dei pesi) sono nell'obiettivo. Le quote già comprate restano investite.`],
+    ['Continua il ', 'PAC C', ` (attivo dal 30/10, ${eur0(d3.sum(pacs.filter(p => p.plan === 'C'), p => +p.value))} oggi) con ${C_.map(r => `${short(r.ticker)} ${pct(+r.weight, 0)}`).join(', ')} e ${eur0(amt.C || 0)} al mese.`],
+    ['Non vendere per ora: ', 'azioni singole e ETF esclusi', ` si diluiscono da soli. ${hit ? `Con questi importi la distanza scende sotto il 10% al mese ${hit.m}.` : 'Con questi importi la distanza resta sopra il 10% a 48 mesi: aumenta il PAC C o valuta qualche vendita (scheda Ottimizzazione).'}`],
+    ['Ogni mese versa ', 'sul conto liquidità', ` ${eur0(amt.L || 0)} (${pct((amt.L || 0) / Math.max(1, (amt.L || 0) + (amt.A || 0) + (amt.B || 0) + (amt.C || 0)), 0)} del risparmio mensile): a 48 mesi il saldo stimato è ${eur0(sim.at(-1).liq)}, il ${pct(sim.at(-1).liqShare, 0)} del patrimonio.`],
+    ['A obiettivo raggiunto ', 'sostituisci il PAC C', ` con un PAC unico ai pesi dell'Ottimale + Oro, così il portafoglio resta in equilibrio.`]
+  ];
+  el.replaceChildren(...items.map(([a, b, c]) => { const li = document.createElement('li'); const bb = document.createElement('b'); bb.textContent = b; li.append(a, bb, c); return li; }));
+}
+
+// ---------- tabs
+const TABS = ['panoramica', 'rischio', 'ottimizzazione', 'analisi', 'piano', 'proiezioni', 'operativita'];
+let tab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'panoramica';
+const tabBtns = [...root.querySelectorAll('.qx-tabs button')];
+function showTab(t) {
+  tab = t; tabBtns.forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === t)));
+  TABS.forEach(id => root.querySelector('#' + id).hidden = id !== t);
+  dash.setLink(t); hideTip(); draw();
+}
+tabBtns.forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+
+// ---------- controls
+root.querySelector('#pac-deploy').addEventListener('change', e => dash.setParams({deploy: e.target.checked}));
+const pacIn = root.querySelector('#pac'), pacOut = root.querySelector('#pac-out');
+pacIn.addEventListener('input', () => { pacOut.textContent = eur0(+pacIn.value) + '/mese'; dash.setParams({pac: +pacIn.value}); });
+function segButtons(el, items, active, onPick) {
+  el.replaceChildren(...items.map(([id, label, col]) => { const b = document.createElement('button'); b.type = 'button'; if (col) { const i = document.createElement('i'); i.style.background = col; b.append(i); } b.append(label); b.setAttribute('aria-pressed', String(id === active)); b.addEventListener('click', () => onPick(id)); return b; }));
+}
+
+// ---------- main draw
+function draw() {
+  const r = st('risk'), ex = st('excess'), pf = st('portfolios');
+  const R = r.status === 'ok' ? r.data[0] : null;
+  const EX = ex.status === 'ok' && ex.data[0] ? ex.data[0].excess : null;
+  const PF = pf.status === 'ok' ? pf.data : [];
+  const kp = [['equity', v => eur(v)], ['net_deposits', v => eur(v)], ['pnl', v => eurS(v), 1], ['unrealized', v => eurS(v), 1], ['twr', v => pctS(v), 1], ['xirr', v => pctS(v), 1], ['vol_exante', v => pct(v)], ['bench_vol', v => pct(v)], ['beta_exante', v => num(v, 2)], ['corr_bench', v => num(v, 2)],
+    ['var95_1d_eur', v => eur(v)], ['cvar95_1d', v => pct(v, 2)], ['maxdd_real', v => pct(v), 1], ['sharpe_real', v => num(v, 2)],
+    ['realized_total', v => eurS(v), 1], ['trades_closed', v => String(v)], ['win_rate', v => pct(v, 0)], ['profit_factor', v => num(v, 2)], ['avg_win', v => eur(v)], ['avg_loss', v => eur(v)], ['dividends', v => eur(v)], ['interest', v => eur(v)], ['costs_total', v => eur(v), 1]];
+  for (const [f, fmt, c] of kp) root.querySelectorAll(`[data-source="risk"][data-field="${f}"]`).forEach(el => { el.textContent = R ? fmt(+R[f]) : '—'; if (R && c) sgn(el, +R[f]); });
+  const exEl = root.querySelector('[data-source="excess"][data-field="excess"]'); exEl.textContent = EX == null ? '—' : pctS(EX, 1); if (EX != null) sgn(exEl, EX);
+  const take = root.querySelector('#takeaway');
+  if (R) {
+    root.querySelector('#asof').textContent = fDayY(new Date(R.end));
+    const o = PF.find(p => p.id === 'ottimale'), a = PF.find(p => p.id === 'attuale');
+    const b = t => { const e = document.createElement('b'); e.textContent = t; return e; };
+    const parts = ['NAV ', b(eur(R.equity)), `, P/L ${eurS(R.pnl)}, TWR ${pctS(R.twr)} vs VWCE ${pctS(R.bench_ret)}. `];
+    if (o && a) parts.push('Rischio sopra il mercato (β ', b(num(R.beta_exante, 2)), `); l'allocazione ottimizzata ridurrebbe il max drawdown storico da ${pct(a.maxdd_bt, 0)} a `, b(pct(o.maxdd_bt, 0)), ` alzando il rendimento atteso a ${pct(o.mu, 1)}.`);
+    take.replaceChildren(...parts);
+  }
+  const p = dash.params();
+  const prop = ['difensivo', 'ottimale', 'oro', 'crescita'].includes(p.prop) ? p.prop : 'oro';
+  const propRow = PF.find(x => x.id === prop);
+
+  if (tab === 'panoramica') {
+    const eq = st('equity');
+    for (const [id, fn] of [['#ch-equity', drawEquity], ['#ch-perf', drawPerf]]) { const el = root.querySelector(id); if (ready(el, eq.status)) fn(el, eq.data); }
+    const dde = root.querySelector('#ch-dd'); if (ready(dde, eq.status)) drawUnder(dde, eq.data.map(r => ({d: new Date(r.day), drawdown: +r.drawdown})), ['drawdown'], fit(220, .42));
+    const al = st('allocation'), ae = root.querySelector('#ch-alloc'); if (ready(ae, al.status)) drawAlloc(ae, root.querySelector('#lg-alloc'), al.data);
+    const ps = st('positions'), pe = root.querySelector('#ch-riskw'); if (ready(pe, ps.status)) drawRiskW(pe, ps.data);
+    posRows = ps.status === 'ok' ? ps.data.map(x => ({...x, value: +x.value, weight: +x.weight, pnl: +x.pnl, ret_pct: +x.ret_pct, vol_ann: +x.vol_ann, beta: +x.beta, risk_share: +x.risk_share, ret_1y: +x.ret_1y})) : [];
+    renderPos();
+    const co = st('corr'), ins = root.querySelector('#insights');
+    if (R && ps.status === 'ok' && co.status === 'ok' && PF.length) insights(ins, R, posRows, co.data, EX ?? 0, PF.map(x => ({...x, mu: +x.mu, vol: +x.vol, maxdd_bt: +x.maxdd_bt, cagr_bt: +x.cagr_bt, oos_maxdd: +x.oos_maxdd, corr_vwce: +x.corr_vwce}))); else ins.replaceChildren();
+  }
+  if (tab === 'rischio') {
+    const ro = st('rolling');
+    const e1 = root.querySelector('#ch-rollvol'); if (ready(e1, ro.status)) drawRoll(e1, ro.data, [['vol_vwce', C.mu, 'VWCE', 1.3], ['vol', C.bl, 'Portafoglio', 1.7]], v => pct(v, 0), fit(220, .42));
+    const e2 = root.querySelector('#ch-rollcorr'); if (ready(e2, ro.status)) drawRoll(e2, ro.data, [['corr', C.ac, 'ρ con VWCE', 1.7]], v => num(v, 1), fit(220, .42), 0.9);
+    const di = st('dist'), e3 = root.querySelector('#ch-dist'); if (ready(e3, di.status)) drawDist(e3, di.data);
+    if (PF.length) renderStress(PF);
+    const co = st('corr'), ce = root.querySelector('#ch-corr'); if (ready(ce, co.status)) drawCorr(ce, co.data);
+  }
+  if (tab === 'ottimizzazione') {
+    if (PF.length) renderCmp(PF, prop);
+    const fr = st('frontier'), fe = root.querySelector('#ch-frontier'); if (ready(fe, fr.status)) drawFrontier(fe, fr.data);
+    const wt = st('weights'), we = root.querySelector('#ch-weights'); if (ready(we, wt.status)) drawWeights(we, root.querySelector('#lg-weights'), wt.data);
+    const bt = st('backtest'), be = root.querySelector('#ch-bt'), bde = root.querySelector('#ch-btdd');
+    if (ready(be, bt.status)) drawBT(be, bt.data);
+    if (ready(bde, bt.status)) drawUnder(bde, bt.data.map(r => ({d: new Date(r.day), dd_vwce: +r.dd_vwce, dd_crescita: +r.dd_crescita, dd_difensivo: +r.dd_difensivo, dd_ottimale: +r.dd_ottimale, dd_oro: +r.dd_oro, dd_attuale: +r.dd_attuale})), ['dd_vwce', 'dd_crescita', 'dd_difensivo', 'dd_ottimale', 'dd_oro', 'dd_attuale'], fit(140, .13), fMonY, {dd_vwce: 'VWCE', dd_crescita: 'Crescita', dd_difensivo: 'Difensivo', dd_ottimale: 'Ottimale', dd_oro: 'Ottimale + Oro', dd_attuale: 'Attuale'});
+    root.querySelector('#lg-bt').replaceChildren(...['attuale', 'difensivo', 'ottimale', 'oro', 'crescita', 'vwce'].map(k => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = PC[k]; s.append(i, PN[k]); return s; }));
+    segButtons(root.querySelector('#prop-seg'), PF.filter(x => !['attuale', 'vwce'].includes(x.id)).map(x => [x.id, x.name, PC[x.id]]), prop, id => dash.setParams({prop: id}));
+    if (wt.status === 'ok') renderTrades(wt.data, prop, propRow ? propRow.name : prop);
+    const sc = st('screener'); scrRows = sc.status === 'ok' ? sc.data.map(x => ({...x, corr_port: +x.corr_port, beta_vwce: +x.beta_vwce, mu: +x.mu, vol: +x.vol, cagr_5y: +x.cagr_5y, maxdd_5y: +x.maxdd_5y, d_vol: +x.d_vol, d_mu: +x.d_mu, d_sharpe: +x.d_sharpe, d_maxdd: +x.d_maxdd})) : []; renderScr();
+  }
+  if (tab === 'analisi' && root.querySelector('#an-dip').open) {
+    const ds = st('dip_summary'), dse = st('dip_series');
+    if (ds.status === 'ok') renderDip(ds.data);
+    const e = root.querySelector('#ch-dip'); if (ready(e, dse.status)) drawDip(e, root.querySelector('#lg-dip'), dse.data);
+  }
+  if (tab === 'analisi' && root.querySelector('#an-fondamentali').open) {
+    const fs = st('fund_summary'), fa = st('fund_annual'), fp = st('fund_prices');
+    const S = fs.status === 'ok' ? fs.data : [];
+    if (S.length) renderFund(S, PF);
+    const e1 = root.querySelector('#ch-f-ret'); if (ready(e1, fs.status) && PF.length) drawFRet(e1, S, PF);
+    const e2 = root.querySelector('#ch-f-px'); if (ready(e2, fp.status)) drawFPx(e2, root.querySelector('#lg-f-px'), fp.data);
+    const e3 = root.querySelector('#ch-f-rev'); if (ready(e3, fa.status)) drawFMulti(e3, fa.data, 'revenue', 'op_margin', v => nf({maximumFractionDigits: 1}).format(v) + ' mld', v => pct(v, 0), 'Ricavi', 'Margine op.');
+    const e4 = root.querySelector('#ch-f-fcf'); if (ready(e4, fa.status)) drawFMulti(e4, fa.data, 'fcf', 'capex_rev', v => nf({maximumFractionDigits: 1}).format(v) + ' mld', v => pct(v, 0), 'Free cash flow', 'Capex / ricavi');
+    const e5 = root.querySelector('#ch-f-roic'); if (ready(e5, fa.status)) drawFRoic(e5, root.querySelector('#lg-f-roic'), fa.data);
+  }
+  if (tab === 'piano') {
+    const pc = st('pacs'), mo = st('model'), cv = st('cov'), lq = st('liquidity');
+    const amt = {A: p.pacA ?? 0, B: p.pacB ?? 0, C: p.pacC ?? 240, L: p.liq ?? 80};
+    const deploy = p.deploy === true;
+    const liqCfg = lq.status === 'ok' ? lq.data[0] : null;
+    root.querySelector('#pac-deploy').checked = deploy;
+    const presetId = (PRESETS.find(([, , v]) => v.pacA === amt.A && v.pacB === amt.B && v.pacC === amt.C && v.liq === amt.L) || [''])[0];
+    segButtons(root.querySelector('#pac-preset'), PRESETS.map(([id, l]) => [id, l]), presetId, id => dash.setParams(PRESETS.find(x => x[0] === id)[2]));
+    const cards = root.querySelector('#pac-cards');
+    const startLiq = mo.status === 'ok' ? +(mo.data.find(m => m.ticker === 'XEON.DE') || {current_eur: 0}).current_eur : 0;
+    if (pc.status === 'ok') renderPacCards(cards, pc.data, amt, liqCfg, (liqCfg ? +liqCfg.start : 0) + (deploy ? 0 : startLiq)); else cards.replaceChildren();
+    const e1 = root.querySelector('#ch-pac-dist'), e2 = root.querySelector('#ch-pac-metrics'), e3 = root.querySelector('#ch-pac-wealth');
+    const s_ = [pc, mo, cv, lq].find(x => x.status !== 'ok');
+    const ok1 = ready(e1, s_ ? s_.status : 'ok'), ok2 = ready(e2, s_ ? s_.status : 'ok'), ok3 = ready(e3, s_ ? s_.status : 'ok');
+    if (ok1 && ok2 && ok3) {
+      const sim = pacSim(mo.data, cv.data, pc.data, amt, deploy, liqCfg);
+      drawPacDist(e1, sim); drawPacMetrics(e2, sim); drawPacWealth(e3, sim); renderPacTable(sim); renderPacSteps(root.querySelector('#pac-steps'), pc.data, sim, amt);
+      const hit = sim.find(d => d.dist <= .1), y12 = sim[Math.min(12, sim.length - 1)];
+      root.querySelector('#pac-take').textContent = `Obiettivo: Ottimale + Oro (oro fisico ~10%, stesso rendimento atteso dell'Ottimale). Oggi solo il ${pct(1 - sim[0].dist, 0)} degli investimenti coincide con l'obiettivo. Indirizzando i versamenti (${eur0(amt.A + amt.B + amt.C)}/mese investiti, ${eur0(amt.L)}/mese sul conto liquidità) la distanza scende al ${pct(y12.dist, 0)} in 12 mesi${hit ? ` e sotto il 10% al mese ${hit.m}` : ''}, senza vendere nulla e senza pagare tasse sulle plusvalenze. σ passa da ${pct(sim[0].vol, 1)} a ${pct(y12.vol, 1)} e ρ con VWCE da ${num(sim[0].rho, 2)} a ${num(y12.rho, 2)} in un anno.`;
+    }
+  }
+  if (tab === 'proiezioni') {
+    const sc = st('scenarios'), scen = p.scen || 'Base';
+    segButtons(root.querySelector('#mc-prop'), PF.filter(x => !['attuale', 'vwce'].includes(x.id)).map(x => [x.id, x.name, PC[x.id]]), prop, id => dash.setParams({prop: id}));
+    if (sc.status === 'ok') segButtons(root.querySelector('#scen'), sc.data.map(s => [s.scenario, s.scenario]), scen, id => dash.setParams({scen: id}));
+    const pac = p.pac == null ? (R ? Math.round(+R.pac_monthly / 10) * 10 : 0) : +p.pac;
+    if (document.activeElement !== pacIn) pacIn.value = pac; pacOut.textContent = eur0(pac) + '/mese';
+    const me = root.querySelector('#ch-mc');
+    const s_ = !R ? r.status : pf.status !== 'ok' ? pf.status : sc.status;
+    if (ready(me, R && pf.status === 'ok' && sc.status === 'ok' ? 'ok' : s_)) {
+      const sh = +(sc.data.find(s => s.scenario === scen) || {shift: 0}).shift;
+      drawMC(me, root.querySelector('#tbl-mc').tBodies[0], root.querySelector('#mc-dd'), R, PF.find(x => x.id === 'attuale'), propRow, sh, pac);
+    }
+  }
+  if (tab === 'operativita') {
+    const fl = st('flows'), fe = root.querySelector('#ch-flows'); if (ready(fe, fl.status)) drawFlows(fe, fl.data);
+    const rz = st('realized'), re = root.querySelector('#ch-real'); if (ready(re, rz.status)) drawReal(re, rz.data);
+  }
+}
+dash.onData(draw);
+if (tab !== 'panoramica') showTab(tab);
+})();
+</script>
+</body></html>

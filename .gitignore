@@ -1,0 +1,5 @@
+data/xtb_exports/
+.DS_Store
+*.xlsx
+*.pkl
+__pycache__/

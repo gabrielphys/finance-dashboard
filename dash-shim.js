@@ -3,7 +3,8 @@
   const F = {allocation:'allocation', backtest:'backtest', corr:'corr', cov:'xtb_cov', dist:'dist', equity:'equity',
     flows:'flows', frontier:'frontier', liquidity:'xtb_liquidity_v2', model:'xtb_model', pacs:'xtb_pacs',
     portfolios:'portfolios', positions:'positions', realized:'realized', risk:'risk', rolling:'rolling',
-    scenarios:'xtb_scenarios_v2', screener:'screener', weights:'weights'};   // dati rigenerati da GitHub Actions ogni 15 min
+    scenarios:'xtb_scenarios_v2', screener:'screener', weights:'weights',
+    dip_summary:'xtb_dip_summary', dip_series:'xtb_dip_series'};   // dati rigenerati da GitHub Actions ogni 15 min
   const S = {}, calcs = [], cbs = [];
   let params = {};
   const fire = () => cbs.forEach(f => f());
@@ -24,5 +25,7 @@
     let u = document.getElementById('upd'); if (!u && el) { u = document.createElement('span'); u.id = 'upd'; el.parentNode.append(' · agg. ', u); }
     if (u) u.textContent = new Date(m.updated).toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
   }).catch(() => {}); });
+  // ponytail: i dati fund_* (bilanci SEC, giudizi) non sono nel repo: sezione nascosta finché non vengono aggiunti a F
+  addEventListener('DOMContentLoaded', () => { const fd = document.getElementById('an-fondamentali'); if (fd) { fd.open = false; fd.hidden = true; } });
   load(); setInterval(load, 15 * 60 * 1000);
 })();

@@ -2,7 +2,7 @@ import json, urllib.request, time, sys, os
 os.makedirs('../data/prices5',exist_ok=True)
 # simboli Yahoo usati da opt.py (HOLD + CAND + cambi) e fit.py
 DEFAULT=['EURUSD=X','EURGBP=X','SXRV.DE','VWCE.DE','SPPW.DE','EUNL.DE','XDWD.DE','TPRO.MI','VGWD.DE','IS3S.DE','VDIV.DE','SXRT.DE','SXR8.DE','QDVE.DE','XAIX.DE','SPCX','ISP.MI','TSLA','ISLN.L','ATS.VI','STMMI.MI','RACE.MI','PTX.DE','MH6.F',
- '4GLD.DE','XGLE.DE','EUNA.DE','IBCI.DE','XEON.DE','IQQ0.DE','IS3N.DE','ZPRV.DE','ZPRX.DE','IS3Q.DE','EXXY.DE','DBXG.DE','XDEM.DE','TRET.DE','MSFT','GOOGL','STLAM.MI']
+ '4GLD.DE','XGLE.DE','EUNA.DE','IBCI.DE','XEON.DE','IQQ0.DE','IS3N.DE','ZPRV.DE','ZPRX.DE','IS3Q.DE','EXXY.DE','DBXG.DE','XDEM.DE','TRET.DE','MSFT','GOOGL','STLAM.MI','NVDA','CRIS']
 def get(sym):
     u=f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}?period1=1609459200&period2={int(time.time())}&interval=1d'
     return json.load(urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0'}),timeout=20))['chart']['result'][0]

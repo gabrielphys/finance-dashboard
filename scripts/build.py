@@ -1,7 +1,7 @@
 import json, numpy as np, pandas as pd, datetime as dt
 exec(open('load.py').read())
 END=pd.offsets.BDay().rollback(pd.Timestamp.now().normalize())   # data di riferimento dell'analisi
-EXP=pd.Timestamp('2026-10-30')   # data degli export XTB: posizioni e liquidità sono quelle di questo giorno
+EXP=pd.Timestamp('2026-11-20')   # data degli export XTB: posizioni e liquidità sono quelle di questo giorno
 # ---- prices in EUR
 def series(t):
     d=json.load(open(f'../data/prices/{t}.json'))

@@ -1,7 +1,7 @@
 import json, numpy as np, pandas as pd
 from scipy.optimize import minimize, linprog
 from sklearn.covariance import LedoitWolf
-END=pd.offsets.BDay().rollback(pd.Timestamp.now().normalize()); EXP=pd.Timestamp('2026-10-30')   # analisi / export XTB
+END=pd.offsets.BDay().rollback(pd.Timestamp.now().normalize()); EXP=pd.Timestamp('2026-11-20')   # analisi / export XTB
 def load(sym):
     d=json.load(open(f'../data/prices5/{sym}.json'))
     s=pd.Series(d['c'],index=pd.to_datetime(d['ts'],unit='s').normalize(),dtype=float).dropna()
@@ -13,7 +13,7 @@ def eur(sym):
     if c=='USD': s=s/fxu
     elif c=='GBp': s=s/100/fxg
     return s
-HOLD={'SXRV.DE':'SXRV.DE','VWCE.DE':'VWCE.DE','SPPW.DE':'SPPW.DE','EUNL.DE':'EUNL.DE','XDWD.DE':'XDWD.DE','TPRO.IT':'TPRO.MI','VGWD.DE':'VGWD.DE','IS3S.DE':'IS3S.DE','VDIV.DE':'VDIV.DE','SXRT.DE':'SXRT.DE','SXR8.DE':'SXR8.DE','QDVE.DE':'QDVE.DE','XAIX.DE':'XAIX.DE','SPCX.US':'SPCX','ISP.IT':'ISP.MI','TSLA.US':'TSLA','ISLN.UK':'ISLN.L','ATS.DE':'ATS.VI','STM.IT':'STMMI.MI','RACE.IT':'RACE.MI','PTX.DE':'PTX.DE','MH6.DE':'MH6.F'}
+HOLD={'SXRV.DE':'SXRV.DE','VWCE.DE':'VWCE.DE','SPPW.DE':'SPPW.DE','EUNL.DE':'EUNL.DE','XDWD.DE':'XDWD.DE','TPRO.IT':'TPRO.MI','VGWD.DE':'VGWD.DE','IS3S.DE':'IS3S.DE','VDIV.DE':'VDIV.DE','SXRT.DE':'SXRT.DE','SXR8.DE':'SXR8.DE','QDVE.DE':'QDVE.DE','XAIX.DE':'XAIX.DE','SPCX.US':'SPCX','ISP.IT':'ISP.MI','TSLA.US':'TSLA','ISLN.UK':'ISLN.L','ATS.DE':'ATS.VI','STM.IT':'STMMI.MI','RACE.IT':'RACE.MI','PTX.DE':'PTX.DE','MH6.DE':'MH6.F','NVDA.US':'NVDA','CRIS.US':'CRIS'}
 pos=pd.DataFrame(json.load(open('../data/out/positions.json'))); risk=json.load(open('../data/out/risk.json'))[0]
 P={t:eur(y) for t,y in HOLD.items()}
 CAND=['4GLD.DE','XGLE.DE','EUNA.DE','IBCI.DE','XEON.DE','IQQ0.DE','IS3N.DE','ZPRV.DE','ZPRX.DE','IS3Q.DE','EXXY.DE','DBXG.DE','XDEM.DE','TRET.DE']

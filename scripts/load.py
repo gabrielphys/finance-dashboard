@@ -20,6 +20,11 @@ if all(os.path.exists(f) for f in F):
         df=pd.DataFrame([r for r in rows[i+1:] if r[0]],columns=rows[i]); op.append(df)
     opn=pd.concat(op)
     cash['Comment']=cash['Comment'].astype(str).str.replace(r'\b\d{8}\b','[CONTO]',regex=True)   # numeri di conto nei commenti dei trasferimenti
+    # Export parziali (es. solo l'ultimo mese): le righe precedenti restano quelle dello snapshot, quelle dal 'Date from' dell'export in poi sono sostituite
+    if os.path.exists(SNAP):
+        c0,k0,_=pickle.load(open(SNAP,'rb'))
+        t0=pd.Timestamp(openpyxl.load_workbook(F[0],data_only=True)['Cash Operations']['B3'].value)   # Date from (UTC) dell'export
+        cash=pd.concat([c0[pd.to_datetime(c0.Time)<t0],cash]); closed=pd.concat([k0[pd.to_datetime(k0['Close Time (UTC)'])<t0],closed])
     pickle.dump((cash,closed,opn),open(SNAP,'wb'))
 else:
     cash,closed,opn=pickle.load(open(SNAP,'rb'))

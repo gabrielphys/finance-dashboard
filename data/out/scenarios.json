@@ -1,1 +1,1 @@
-[{"scenario": "Prudente", "mu": 0.04, "sigma": 0.1354, "note": "Rendimento atteso 4%/anno"}, {"scenario": "Base", "mu": 0.065, "sigma": 0.1593, "note": "Rendimento atteso 6,5%/anno"}, {"scenario": "Ottimista", "mu": 0.09, "sigma": 0.1753, "note": "Rendimento atteso 9%/anno"}]
+[{"scenario": "Prudente", "mu": 0.04, "sigma": 0.1386, "note": "Rendimento atteso 4%/anno"}, {"scenario": "Base", "mu": 0.065, "sigma": 0.1631, "note": "Rendimento atteso 6,5%/anno"}, {"scenario": "Ottimista", "mu": 0.09, "sigma": 0.1794, "note": "Rendimento atteso 9%/anno"}]
